@@ -50,8 +50,6 @@ jobs:
           check_name: '[unit-test] Results'
       - name: Build with Gradle
         run: ./gradlew build
-      - name: cp
-        run: cp deploy.sh ./build/libs/deploy.sh
         shell: bash
       - name: Make zip file
         run: zip -qq -r ./eclass-server.zip .

@@ -11,7 +11,7 @@ on:
         description: 'Test scenario tags'
   push:
     branches:
-      - master
+      - develop
 
 
 jobs:

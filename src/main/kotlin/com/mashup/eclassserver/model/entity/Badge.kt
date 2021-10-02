@@ -9,7 +9,7 @@ import javax.persistence.Id
 data class Badge(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val BadgeId: Long = 0,
+    val badgeId: Long = 0
 
     val name: String,
 

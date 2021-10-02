@@ -9,7 +9,7 @@ import javax.persistence.Id
 data class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val MemberId: Long = 0,
+    val memberId: Long = 0
 
     val nickname: String
 ) : BaseEntity()

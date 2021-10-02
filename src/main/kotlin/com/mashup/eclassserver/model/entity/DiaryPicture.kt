@@ -1,5 +1,6 @@
 package com.mashup.eclassserver.model.entity
 
+import com.mashup.eclassserver.model.dto.PictureSubmitRequest
 import javax.persistence.*
 
 @Entity
@@ -13,5 +14,22 @@ data class DiaryPicture(
 
     val imageUrl: String,
 
-    val isThumbnail: Boolean
-) : BaseEntity()
+    val isThumbnail: Boolean,
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = arrayOf(CascadeType.ALL))
+    @JoinColumn(name = "attached_sticker_id")
+    var attachedStickerList: MutableList<AttachedSticker>
+) : BaseEntity() {
+    companion object {
+        fun toEntity(request: PictureSubmitRequest, memberId: Long, diaryId: Long) =
+                DiaryPicture(
+                    diaryId = diaryId,
+                    imageUrl = request.imageUrl,
+                    isThumbnail = request.isThumbnail,
+                    attachedStickerList =
+                    request.attachedStickerSubmitRequestList.asSequence()
+                            .map { AttachedSticker.toEntity(it, memberId) }
+                            .toMutableList()
+                )
+    }
+}

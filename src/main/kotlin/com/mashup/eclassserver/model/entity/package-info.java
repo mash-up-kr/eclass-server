@@ -1,1 +1,0 @@
-package com.mashup.eclassserver.model.entity;

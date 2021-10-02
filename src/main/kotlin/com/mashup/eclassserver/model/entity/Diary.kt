@@ -8,9 +8,7 @@ data class Diary(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val diaryId: Long = 0,
 
-    @OneToOne
-    @JoinColumn(name = "pet_id")
-    val pet: Pet,
+    val petId: Long,
 
     @OneToOne(cascade = arrayOf(CascadeType.ALL))
     @JoinColumn(name = "badge_id")

@@ -8,7 +8,8 @@ data class Reply(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val replyId: Long = 0,
 
-    val content: String? = null,
+    @Lob
+    var content: String? = null,
 
     @OneToOne
     @JoinColumn(name = "member_id")

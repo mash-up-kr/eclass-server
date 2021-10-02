@@ -8,18 +8,29 @@ eclass-api
 :sectlinks:
 :hardbreaks:
 
-=== 테스트 API
+== Cover
 
 ==== Curl Command
 
-include::{snippets}/ping/curl-request.adoc[]
+include::{snippets}/cover/register/curl-request.adoc[]
 
 ==== Http Request
 
-include::{snippets}/ping/http-request.adoc[]
+include::{snippets}/cover/register/http-request.adoc[]
+
+==== Request Parts
+
+include::{snippets}/cover/register/request-parts.adoc[]
+
+==== CoverData
+
+include::{snippets}/cover/register/request-part-coverData-fields.adoc[]
 
 ==== Http Response
 
-include::{snippets}/ping/http-response.adoc[]
+include::{snippets}/cover/register/http-response.adoc[]
+
+=== Cover 등록(저장)
+
 
 

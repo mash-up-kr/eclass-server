@@ -11,7 +11,7 @@ data class DiaryPicture(
     @Column(name = "diary_id")
     val diaryId: Long = 0,
 
-    val imageUrl: String? = null,
+    val imageUrl: String,
 
-    val isThumbnail: Boolean? = false
+    val isThumbnail: Boolean
 ) : BaseEntity()

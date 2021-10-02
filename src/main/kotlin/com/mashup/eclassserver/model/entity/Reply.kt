@@ -8,6 +8,8 @@ data class Reply(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val replyId: Long = 0,
 
+    val diaryId: Long = 0,
+
     @Lob
     var content: String? = null,
 

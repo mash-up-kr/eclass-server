@@ -20,6 +20,7 @@ data class Diary(
     @JoinColumn(name = "member_id")
     val member: Member,
 
+    @Lob
     var content: String? = null,
 
     @OneToMany(fetch = FetchType.LAZY, cascade = arrayOf(CascadeType.ALL))

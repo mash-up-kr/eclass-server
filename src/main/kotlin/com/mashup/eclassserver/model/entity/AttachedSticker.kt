@@ -6,9 +6,9 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-data class Sticker(
+data class AttachedSticker(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val stickerId: Long = 0,
+    val attachedStickerId: Long = 0,
     val imageUrl: String,
     val name: String
 ) : BaseEntity()

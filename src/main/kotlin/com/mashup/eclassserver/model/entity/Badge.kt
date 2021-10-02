@@ -10,4 +10,8 @@ data class Badge(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val badgeId: Long = 0
+
+    val name: String,
+
+    val imageUrl: String
 ) : BaseEntity()

@@ -6,10 +6,12 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-data class Diary_Picture(
+data class DiaryPicture(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val diaryPictureId: Long = 0,
+
+    val diaryId: Long = 0,
 
     val imageUrl: String? = null,
 

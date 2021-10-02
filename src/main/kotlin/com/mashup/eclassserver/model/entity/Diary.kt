@@ -23,5 +23,5 @@ data class Diary(
 
     @OneToMany(fetch = FetchType.LAZY, cascade = arrayOf(CascadeType.ALL))
     @JoinColumn(name = "diary_id")
-    var diaryPictureList: MutableList<Diary_Picture> = mutableListOf()
+    var diaryPictureList: MutableList<DiaryPicture> = mutableListOf()
 ) : BaseEntity()

@@ -1,4 +1,7 @@
 package com.mashup.eclassserver.model.repository
 
-interface MemberRepository {
+import com.mashup.eclassserver.model.entity.Member
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface MemberRepository : JpaRepository<Member, Long> {
 }

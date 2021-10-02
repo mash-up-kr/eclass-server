@@ -1,0 +1,18 @@
+= eclass server API
+eclass-api
+:toc: left
+:toclevels: 3
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:sectlinks:
+:hardbreaks:
+
+=== test
+
+==== Curl Command
+
+include::{snippets}/ping/curl-request.adoc[]
+include::{snippets}/ping/http-request.adoc[]
+include::{snippets}/ping/http-response.adoc[]
+include::{snippets}/ping/response-body.adoc[]

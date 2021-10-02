@@ -8,11 +8,18 @@ eclass-api
 :sectlinks:
 :hardbreaks:
 
-=== test
+=== 테스트 API
 
 ==== Curl Command
 
 include::{snippets}/ping/curl-request.adoc[]
+
+==== Http Request
+
 include::{snippets}/ping/http-request.adoc[]
+
+==== Http Response
+
 include::{snippets}/ping/http-response.adoc[]
-include::{snippets}/ping/response-body.adoc[]
+
+

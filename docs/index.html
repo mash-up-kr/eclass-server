@@ -442,9 +442,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel2">
-<li><a href="#_test">test</a>
+<li><a href="#_테스트_api">테스트 API</a>
 <ul class="sectlevel3">
 <li><a href="#_curl_command">Curl Command</a></li>
+<li><a href="#_http_request">Http Request</a></li>
+<li><a href="#_http_response">Http Response</a></li>
 </ul>
 </li>
 </ul>
@@ -452,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect2">
-<h3 id="_test"><a class="link" href="#_test">test</a></h3>
+<h3 id="_테스트_api"><a class="link" href="#_테스트_api">테스트 API</a></h3>
 <div class="sect3">
 <h4 id="_curl_command"><a class="link" href="#_curl_command">Curl Command</a></h4>
 <div class="listingblock">
@@ -460,12 +462,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://server.jonghyeon.com/ping' -i -X GET</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_http_request"><a class="link" href="#_http_request">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /ping HTTP/1.1
 Host: server.jonghyeon.com</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_http_response"><a class="link" href="#_http_response">Http Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -481,18 +489,13 @@ X-Frame-Options: DENY
 pong</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code>pong</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2021-10-02 16:17:52 +0900
+Last updated 2021-10-02 18:36:23 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">

@@ -1,6 +1,7 @@
 # 멤버
 CREATE TABLE IF NOT EXISTS `member` (
     `member_id` bigint NOT NULL AUTO_INCREMENT,
+    `pet_id` bigint NOT NULL,
     `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
     `created_at` datetime DEFAULT NULL,
     `created_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,

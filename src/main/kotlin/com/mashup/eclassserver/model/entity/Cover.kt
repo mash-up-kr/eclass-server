@@ -11,9 +11,9 @@ data class Cover(
     val color: String,
     @Enumerated(EnumType.STRING)
     val shapeType: ShapeType,
-    @Column(name ="shape_x")
+    @Column(name = "shape_x")
     val shapeX: Double,
-    @Column(name ="shape_y")
+    @Column(name = "shape_y")
     val shapeY: Double
 ) : BaseEntity()
 

@@ -27,7 +27,7 @@ data class Diary(
     var diaryPictureList: MutableList<DiaryPicture> = mutableListOf()
 ) : BaseEntity(){
     companion object{
-        fun toEntity(request: DiarySubmitRequest, member: Member) =
+        fun of(request: DiarySubmitRequest, member: Member) =
                 Diary(
                     petId = member.petId,
                     member = member,

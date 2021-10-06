@@ -21,14 +21,14 @@ data class DiaryPicture(
     var attachedStickerList: MutableList<AttachedSticker>
 ) : BaseEntity() {
     companion object {
-        fun toEntity(request: PictureSubmitRequest, memberId: Long, diaryId: Long) =
+        fun of(request: PictureSubmitRequest, memberId: Long, diaryId: Long) =
                 DiaryPicture(
                     diaryId = diaryId,
                     imageUrl = request.imageUrl,
                     isThumbnail = request.isThumbnail,
                     attachedStickerList =
                     request.attachedStickerSubmitRequestList.asSequence()
-                            .map { AttachedSticker.toEntity(it, memberId) }
+                            .map { AttachedSticker.of(it, memberId) }
                             .toMutableList()
                 )
     }

@@ -24,7 +24,7 @@ data class AttachedSticker(
     val attachedType: AttachedType,
 ) : BaseEntity() {
     companion object {
-        fun toEntity(request: AttachedStickerSubmitRequest, memberId: Long) =
+        fun of(request: AttachedStickerSubmitRequest, memberId: Long) =
                 AttachedSticker(stickerId = request.stickerId,
                                 memberId = memberId,
                                 stickerX = request.stickerX,

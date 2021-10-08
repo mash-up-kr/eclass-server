@@ -13,10 +13,10 @@ import javax.persistence.MappedSuperclass
 @MappedSuperclass
 abstract class BaseEntity(
     @CreatedDate
-    val createdAt: LocalDateTime? = null,
+    var createdAt: LocalDateTime? = null,
 
     @CreatedBy
-    val createdBy: String? = null,
+    var createdBy: String? = null,
 
     @LastModifiedDate
     var updatedAt: LocalDateTime? = null,

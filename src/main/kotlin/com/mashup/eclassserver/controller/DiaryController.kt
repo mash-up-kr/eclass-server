@@ -16,11 +16,13 @@ class DiaryController(
     private val diaryService: DiaryService,
     private val memberRepository: MemberRepository
 ) {
-    @PostMapping("/submit")
-    fun submitDiary(@RequestBody diarySubmitRequest: DiarySubmitRequest): ResponseEntity.BodyBuilder {
+    @PostMapping
+    fun submitDiary(@RequestBody diarySubmitRequest: DiarySubmitRequest): ResponseEntity<*> {
         val member = memberRepository.findById(1).get() //dummy data
 
         diaryService.submitDiary(diarySubmitRequest, member)
-        return ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(null)
     }
 }

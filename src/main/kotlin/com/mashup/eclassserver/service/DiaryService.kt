@@ -12,10 +12,10 @@ import javax.transaction.Transactional
 class DiaryService(private val diaryRepository: DiaryRepository) {
     @Transactional
     fun submitDiary(diarySubmitRequest: DiarySubmitRequest, member: Member) {
-        val diary = diaryRepository.save(Diary.of(diarySubmitRequest, member))
-        diary.diaryPictureList = diarySubmitRequest.pictureSubmitRequestList.asSequence()
-                .map { DiaryPicture.of(it, member.memberId, diary.diaryId) }
-                .toMutableList()
+        val diary = Diary.of(diarySubmitRequest, member)
+        diary.diaryPictureList.addAll(diarySubmitRequest.pictureSubmitRequestList.asSequence()
+                                              .map { DiaryPicture.of(it, member.memberId) }
+                                              .toMutableList())
         diaryRepository.save(diary)
     }
 }

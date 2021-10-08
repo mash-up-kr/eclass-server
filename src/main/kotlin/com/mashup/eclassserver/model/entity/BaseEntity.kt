@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass
 
 @EntityListeners(value = [AuditingEntityListener::class])
 @MappedSuperclass
-abstract class BaseEntity(
+open class BaseEntity(
     @CreatedDate
     var createdAt: LocalDateTime? = null,
 

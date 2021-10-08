@@ -22,6 +22,24 @@ include::{snippets}/ping/http-request.adoc[]
 
 include::{snippets}/ping/http-response.adoc[]
 
+== Badge API
+
+==== Curl Command
+
+include::{snippets}/badge/list/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/badge/list/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/badge/list/http-response.adoc[]
+
+=== Response Fields
+
+include::{snippets}/badge/list/response-fields.adoc[]
+
 === 다이어리 글쓰기 API
 
 ==== Curl Command

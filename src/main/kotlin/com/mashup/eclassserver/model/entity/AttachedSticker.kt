@@ -1,6 +1,7 @@
 package com.mashup.eclassserver.model.entity
 
 import com.mashup.eclassserver.model.dto.AttachedStickerDto
+import com.mashup.eclassserver.model.dto.AttachedStickerSubmitRequest
 import javax.persistence.*
 
 @Entity
@@ -10,9 +11,9 @@ data class AttachedSticker(
     val stickerId: Long,
     val attachedId: Long,
     val memberId: Long,
-    @Column(name ="sticker_x")
+    @Column(name = "sticker_x")
     val stickerX: Double,
-    @Column(name ="sticker_y")
+    @Column(name = "sticker_y")
     val stickerY: Double,
     @Enumerated(EnumType.STRING)
     val attachedType: AttachedType
@@ -26,6 +27,17 @@ data class AttachedSticker(
                 stickerX = attachedStickerDto.stickerX,
                 stickerY = attachedStickerDto.stickerY,
                 attachedType = AttachedType.COVER
+            )
+        }
+
+        fun of(memberId: Long, request: AttachedStickerSubmitRequest, diaryId: Long): AttachedSticker {
+            return AttachedSticker(
+                memberId = memberId,
+                stickerId = request.stickerId,
+                attachedId = diaryId,
+                stickerX = request.stickerX,
+                stickerY = request.stickerY,
+                attachedType = AttachedType.DIARY
             )
         }
     }

@@ -11,21 +11,13 @@ data class DiaryPicture(
 
     val imageUrl: String,
 
-    val isThumbnail: Boolean,
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = arrayOf(CascadeType.ALL))
-    @JoinColumn(name = "attached_id")
-    var attachedStickerList: MutableList<AttachedSticker>
+    val isThumbnail: Boolean
 ) : BaseEntity() {
     companion object {
-        fun of(request: PictureSubmitRequest, memberId: Long) =
+        fun of(request: PictureSubmitRequest) =
                 DiaryPicture(
                     imageUrl = request.imageUrl,
-                    isThumbnail = request.isThumbnail,
-                    attachedStickerList =
-                    request.attachedStickerSubmitRequestList.asSequence()
-                            .map { AttachedSticker.of(it, memberId) }
-                            .toMutableList()
+                    isThumbnail = request.isThumbnail
                 )
     }
 }

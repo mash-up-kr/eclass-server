@@ -1,10 +1,7 @@
 package com.mashup.eclassserver.service
 
 import com.mashup.eclassserver.model.dto.DiarySubmitRequest
-import com.mashup.eclassserver.model.entity.AttachedSticker
-import com.mashup.eclassserver.model.entity.Diary
-import com.mashup.eclassserver.model.entity.DiaryPicture
-import com.mashup.eclassserver.model.entity.Member
+import com.mashup.eclassserver.model.entity.*
 import com.mashup.eclassserver.model.repository.AttachedStickerRepository
 import com.mashup.eclassserver.model.repository.DiaryRepository
 import org.springframework.stereotype.Service
@@ -34,10 +31,10 @@ class DiaryService(
     private fun saveAttachedStickerList(diarySubmitRequest: DiarySubmitRequest, diary: Diary, member: Member) {
         val attachedStickerList = diarySubmitRequest.pictureSubmitRequestList
                 .flatMap {
-                    it.attachedStickerSubmitRequestList
+                    it.attachedStickerDtoList
                             .asSequence()
                             .map {
-                                AttachedSticker.of(member.memberId, it, diary.diaryId)
+                                AttachedSticker.of(member.memberId, diary.diaryId, AttachedType.DIARY, it)
                             }
                             .toMutableList()
                 }

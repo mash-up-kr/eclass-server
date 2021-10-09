@@ -1,8 +1,8 @@
 package com.mashup.eclassserver.service
 
 import com.mashup.eclassserver.model.dto.CoverData
-import com.mashup.eclassserver.model.dto.CoverRegisterRequestDto
 import com.mashup.eclassserver.model.entity.AttachedSticker
+import com.mashup.eclassserver.model.entity.AttachedType
 import com.mashup.eclassserver.model.entity.Cover
 import com.mashup.eclassserver.model.repository.AttachedStickerRepository
 import com.mashup.eclassserver.model.repository.CoverRepository
@@ -33,7 +33,7 @@ class CoverService(
         )
 
         val attachedStickerList = coverData.attachedStickerList.map {
-            AttachedSticker.of(memberId, cover.coverId, it)
+            AttachedSticker.of(memberId, cover.coverId, AttachedType.COVER, it)
         }
 
         attachedStickerRepository.saveAll(attachedStickerList)

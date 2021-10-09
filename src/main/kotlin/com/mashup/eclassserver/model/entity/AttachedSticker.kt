@@ -1,7 +1,6 @@
 package com.mashup.eclassserver.model.entity
 
 import com.mashup.eclassserver.model.dto.AttachedStickerDto
-import com.mashup.eclassserver.model.dto.AttachedStickerSubmitRequest
 import javax.persistence.*
 
 @Entity
@@ -19,25 +18,14 @@ data class AttachedSticker(
     val attachedType: AttachedType
 ) : BaseEntity() {
     companion object {
-        fun of(memberId: Long, coverId: Long, attachedStickerDto: AttachedStickerDto): AttachedSticker {
+        fun of(memberId: Long, attachedId: Long, type: AttachedType, attachedStickerDto: AttachedStickerDto): AttachedSticker {
             return AttachedSticker(
                 memberId = memberId,
                 stickerId = attachedStickerDto.stickerId,
-                attachedId = coverId,
+                attachedId = attachedId,
                 stickerX = attachedStickerDto.stickerX,
                 stickerY = attachedStickerDto.stickerY,
-                attachedType = AttachedType.COVER
-            )
-        }
-
-        fun of(memberId: Long, request: AttachedStickerSubmitRequest, diaryId: Long): AttachedSticker {
-            return AttachedSticker(
-                memberId = memberId,
-                stickerId = request.stickerId,
-                attachedId = diaryId,
-                stickerX = request.stickerX,
-                stickerY = request.stickerY,
-                attachedType = AttachedType.DIARY
+                attachedType = type
             )
         }
     }

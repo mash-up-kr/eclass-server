@@ -1,14 +1,37 @@
 package com.mashup.eclassserver.supporter
 
+import com.amazonaws.services.s3.AmazonS3
+import com.amazonaws.services.s3.model.CannedAccessControlList
+import com.amazonaws.services.s3.model.PutObjectRequest
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 
 @Component
-class S3Supporter {
+class S3Supporter(
+    private val awsS3Client: AmazonS3,
 
-    fun transmit(multipartFile: MultipartFile): ImageUrl {
-        // todo S3 파일 전송 기능
-        return ImageUrl("https://user-images.githubusercontent.com/18495291/135726037-c0d395ff-bfd6-41de-8bf0-c9e7c7f620e8.jpeg")
+    @Value("\${cloud.aws.s3.bucket}")
+    private val bucket: String,
+) {
+
+    fun transmit(multipartFile: MultipartFile, type: String): ImageUrl {
+        val fileName: String = type + "/" + multipartFile.originalFilename
+        val putObjectRequest: PutObjectRequest = PutObjectRequest(
+            bucket,
+            fileName,
+            multipartFile.inputStream,
+            null
+        ).withCannedAcl(CannedAccessControlList.PublicRead)
+
+        awsS3Client.putObject(putObjectRequest)
+        return ImageUrl(awsS3Client.getUrl(bucket, fileName).toString())
+    }
+
+    companion object {
+        val COVERS: String = "covers"
+        val DIARYPICTURES: String = "diary-pictures"
+        val STICKERS: String = "stickers"
     }
 }
 

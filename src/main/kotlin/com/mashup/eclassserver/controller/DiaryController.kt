@@ -1,8 +1,8 @@
 package com.mashup.eclassserver.controller
 
 import com.mashup.eclassserver.model.dto.DiarySubmitRequest
-import com.mashup.eclassserver.model.dto.EditReplyRequest
-import com.mashup.eclassserver.model.dto.RegisterReplyRequest
+import com.mashup.eclassserver.model.dto.ReplyEditRequest
+import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
 import com.mashup.eclassserver.model.repository.MemberRepository
 import com.mashup.eclassserver.service.DiaryService
 import com.mashup.eclassserver.service.ReplyService
@@ -37,18 +37,18 @@ class DiaryController(
     }
 
     @PostMapping("/{diaryId}/reply/register")
-    fun registerReply(@PathVariable(value = "diaryId") diaryId: Long, @RequestBody registerReplyRequest: RegisterReplyRequest): ResponseEntity<*> {
+    fun registerReply(@PathVariable(value = "diaryId") diaryId: Long, @RequestBody replyRegisterRequest: ReplyRegisterRequest): ResponseEntity<*> {
         val member = memberRepository.findById(2).get() // dummy data
 
-        replyService.registerReply(diaryId, registerReplyRequest, member)
+        replyService.registerReply(diaryId, replyRegisterRequest, member)
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(null)
     }
 
     @PutMapping("/{diaryId}/reply/edit/{replyId}")
-    fun editReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long, @RequestBody editReplyRequest: EditReplyRequest): ResponseEntity<*> {
-        replyService.editReply(diaryId, replyId, editReplyRequest)
+    fun editReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long, @RequestBody replyEditRequest: ReplyEditRequest): ResponseEntity<*> {
+        replyService.editReply(diaryId, replyId, replyEditRequest)
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(null)

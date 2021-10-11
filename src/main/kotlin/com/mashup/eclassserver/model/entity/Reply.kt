@@ -1,6 +1,6 @@
 package com.mashup.eclassserver.model.entity
 
-import com.mashup.eclassserver.model.dto.RegisterReplyRequest
+import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
 import javax.persistence.*
 
 @Entity
@@ -20,7 +20,7 @@ data class Reply(
     val member: Member
 ) : BaseEntity(){
     companion object{
-        fun of(diaryId: Long, request: RegisterReplyRequest, member: Member) =
+        fun of(diaryId: Long, request: ReplyRegisterRequest, member: Member) =
                 Reply(
                         diaryId = diaryId,
                         content = request.content,

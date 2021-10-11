@@ -1,5 +1,5 @@
 package com.mashup.eclassserver.model.dto
 
-data class RegisterReplyRequest(
+data class ReplyRegisterRequest(
     val content: String
 )

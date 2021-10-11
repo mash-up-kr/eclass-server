@@ -1,5 +1,5 @@
 package com.mashup.eclassserver.model.dto
 
-data class EditReplyRequest(
+data class ReplyEditRequest(
     val content: String
 )

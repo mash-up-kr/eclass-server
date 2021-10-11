@@ -1,7 +1,7 @@
 package com.mashup.eclassserver.service
 
-import com.mashup.eclassserver.model.dto.EditReplyRequest
-import com.mashup.eclassserver.model.dto.RegisterReplyRequest
+import com.mashup.eclassserver.model.dto.ReplyEditRequest
+import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
 import com.mashup.eclassserver.model.dto.ReplyResponse
 import com.mashup.eclassserver.model.dto.ReplyResponseDto
 import com.mashup.eclassserver.model.entity.Member
@@ -20,15 +20,15 @@ class ReplyService(
         )
     }
 
-    fun registerReply(diaryId: Long, registerReplyRequest: RegisterReplyRequest, member: Member) {
-        val reply = Reply.of(diaryId, registerReplyRequest, member)
+    fun registerReply(diaryId: Long, replyRegisterRequest: ReplyRegisterRequest, member: Member) {
+        val reply = Reply.of(diaryId, replyRegisterRequest, member)
         replyRepository.save(reply)
     }
 
-    fun editReply(diaryId: Long, replyId: Long, editReplyRequest: EditReplyRequest) {
+    fun editReply(diaryId: Long, replyId: Long, replyEditRequest: ReplyEditRequest) {
         val reply = replyRepository.findByDiaryIdAndReplyId(diaryId, replyId)
                 .orElseThrow() // Todo: 없는 경우 예외 던지기, 예외 형식 만들어서?
-        reply.content = editReplyRequest.content
+        reply.content = replyEditRequest.content
         replyRepository.save(reply)
     }
 

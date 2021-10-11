@@ -3,7 +3,6 @@ package com.mashup.eclassserver.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mashup.eclassserver.constants.DEFAULT_OBJECT_MAPPER
 import com.mashup.eclassserver.model.dto.*
-import com.mashup.eclassserver.model.entity.Badge
 import com.mashup.eclassserver.model.entity.Member
 import com.mashup.eclassserver.model.repository.MemberRepository
 import com.mashup.eclassserver.service.DiaryService
@@ -42,7 +41,7 @@ class DiaryControllerTest @Autowired constructor(
                                 "testImgUrl.com",
                                 false,
                                 arrayListOf(
-                                        AttachedStickerSubmitRequest(
+                                        AttachedStickerDto(
                                                 1, 33.3, 44.4
                                         )
                                 )
@@ -75,37 +74,15 @@ class DiaryControllerTest @Autowired constructor(
                                                 .description("사진 이미지"),
                                         PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].thumbnail")
                                                 .description("썸네일 여부"),
-                                        PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerSubmitRequestList")
+                                        PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList")
                                                 .description("스티커 정보"),
-                                        PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerSubmitRequestList[*].stickerId")
+                                        PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerId")
                                                 .description("스티커 아이디"),
-                                        PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerSubmitRequestList[*].stickerX")
+                                        PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerX")
                                                 .description("스티커 x 좌표 비율"),
-                                        PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerSubmitRequestList[*].stickerY")
+                                        PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerY")
                                                 .description("스티커 y 좌표 비율"),
                                 )
-                        )
-                )
-    }
-
-    @Test
-    fun replyRegisterTest() {
-        val member = Member(1, 1, "test")
-        val replyRequest = ReplyRegisterRequest("content")
-        BDDMockito.given(replyService.registerReply(1L, replyRequest, member)).willReturn(null)
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/{diaryId}/reply/register")
-                .content(DEFAULT_OBJECT_MAPPER.writeValueAsString(replyRequest)))
-                .andDo(MockMvcResultHandlers.print())
-                .andDo(
-                        MockMvcRestDocumentation.document(
-                                "diary/{method}",
-                                HeaderDocumentation.responseHeaders(),
-                                PayloadDocumentation.requestFields(
-                                        PayloadDocumentation.fieldWithPath("content")
-                                                .description("내용"),
-                                ),
-                                HeaderDocumentation.responseHeaders()
                         )
                 )
     }
@@ -169,12 +146,12 @@ class DiaryControllerTest @Autowired constructor(
                                                 .description("댓글 작성자 정보"),
                                         PayloadDocumentation.fieldWithPath("badgeList[*].content")
                                                 .description("댓글 내용")
-                               )
+                                )
                         )
                 )
     }
 
-    fun registerReply() {
+    private fun registerReply() {
         val member = Member(1, 1, "test")
         val replyRequest = ReplyRegisterRequest("content")
         BDDMockito.given(replyService.registerReply(1L, replyRequest, member)).willReturn(null)

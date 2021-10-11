@@ -3,6 +3,7 @@ package com.mashup.eclassserver.controller
 import com.mashup.eclassserver.model.dto.DiarySubmitRequest
 import com.mashup.eclassserver.model.dto.ReplyEditRequest
 import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
+import com.mashup.eclassserver.model.entity.Member
 import com.mashup.eclassserver.model.repository.MemberRepository
 import com.mashup.eclassserver.service.DiaryService
 import com.mashup.eclassserver.service.ReplyService
@@ -38,7 +39,7 @@ class DiaryController(
 
     @PostMapping("/{diaryId}/reply/register")
     fun registerReply(@PathVariable(value = "diaryId") diaryId: Long, @RequestBody replyRegisterRequest: ReplyRegisterRequest): ResponseEntity<*> {
-        val member = memberRepository.findById(2).get() // dummy data
+        val member = Member(1L, 1L, "eclass") // dummy
 
         replyService.registerReply(diaryId, replyRegisterRequest, member)
         return ResponseEntity

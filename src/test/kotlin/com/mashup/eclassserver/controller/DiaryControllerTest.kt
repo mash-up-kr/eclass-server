@@ -2,13 +2,14 @@ package com.mashup.eclassserver.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mashup.eclassserver.constants.DEFAULT_OBJECT_MAPPER
+import com.mashup.eclassserver.infra.ECLogger
 import com.mashup.eclassserver.model.dto.*
 import com.mashup.eclassserver.model.entity.Member
 import com.mashup.eclassserver.model.repository.MemberRepository
 import com.mashup.eclassserver.service.DiaryService
 import com.mashup.eclassserver.service.ReplyService
+import com.nhaarman.mockitokotlin2.given
 import org.junit.jupiter.api.Test
-import org.mockito.BDDMockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doNothing
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,6 +32,11 @@ class DiaryControllerTest @Autowired constructor(
     @MockBean
     private val replyService: ReplyService
 ) : AbstractTestRestDocs() {
+
+    companion object : ECLogger {
+        const val DIARY_BASE_URL = "/api/v1/diary"
+    }
+
     @Test
     fun diarySubmitTest() {
         val testMember = Member(1, 1, "testNick")
@@ -88,17 +94,43 @@ class DiaryControllerTest @Autowired constructor(
     }
 
     @Test
-    fun replyEditTest() {
-        registerReply()
-        val replyRequest = ReplyEditRequest("edit content")
-        BDDMockito.given(replyService.editReply(1L, 1L, replyRequest)).willReturn(null)
+    fun replyRegisterTest() {
+        val member = Member(1, 1, "test")
+        val replyRequest = ReplyRegisterRequest("content")
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/1/reply/edit/1")
-                .content(DEFAULT_OBJECT_MAPPER.writeValueAsString(replyRequest)))
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("$DIARY_BASE_URL/{diaryId}/reply/register", 1L)
+                        .content(DEFAULT_OBJECT_MAPPER.writeValueAsString(replyRequest))
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                         MockMvcRestDocumentation.document(
-                                "diary/{method}",
+                                "api/v1/diary/reply/register",
+                                HeaderDocumentation.responseHeaders(),
+                                PayloadDocumentation.requestFields(
+                                        PayloadDocumentation.fieldWithPath("content")
+                                                .description("댓글 내용"),
+                                ),
+                                HeaderDocumentation.responseHeaders()
+                        )
+                )
+    }
+
+    @Test
+    fun replyEditTest() {
+        val replyRequest = ReplyEditRequest("edit content")
+        doNothing().`when`(replyService).editReply(1L, 1L, replyRequest)
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("$DIARY_BASE_URL/{diaryId}/reply/edit/{replyId}", 1L, 1L)
+                        .content(DEFAULT_OBJECT_MAPPER.writeValueAsString(replyRequest))
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                        MockMvcRestDocumentation.document(
+                                "api/v1/diary/reply/edit",
                                 HeaderDocumentation.responseHeaders(),
                                 PayloadDocumentation.requestFields(
                                         PayloadDocumentation.fieldWithPath("content")
@@ -111,14 +143,13 @@ class DiaryControllerTest @Autowired constructor(
 
     @Test
     fun replyDeleteTest() {
-        registerReply()
-        BDDMockito.given(replyService.deleteReply(1L, 1L)).willReturn(null)
+        doNothing().`when`(replyService).deleteReply(1L, 1L)
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/1/reply/delete/1"))
+        mockMvc.perform(MockMvcRequestBuilders.delete("$DIARY_BASE_URL/{diaryId}/reply/delete/{replyId}", 1L, 1L))
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                         MockMvcRestDocumentation.document(
-                                "diary/{method}",
+                                "api/v1/diary/reply/delete",
                                 HeaderDocumentation.responseHeaders(),
                                 HeaderDocumentation.responseHeaders()
                         )
@@ -127,33 +158,26 @@ class DiaryControllerTest @Autowired constructor(
 
     @Test
     fun getReplyListTest() {
-        registerReply()
         val member = Member(1, 1, "test")
-        val replyList = ReplyResponse(listOf(ReplyResponseDto(member, "content")))
-        BDDMockito.given(replyService.getReplyList(1L)).willReturn(replyList)
+        val replyList = ReplyResponse(listOf(ReplyResponseDto("testMember", "content")))
+        given(replyService.getReplyList(1L)).willReturn(replyList)
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/1/reply/list"))
+        mockMvc.perform(MockMvcRequestBuilders.get("$DIARY_BASE_URL/{diaryId}/reply/list", 1L))
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                         MockMvcRestDocumentation.document(
-                                "diary/{method}",
+                                "api/v1/diary/reply/list",
                                 HeaderDocumentation.requestHeaders(),
                                 HeaderDocumentation.responseHeaders(),
                                 PayloadDocumentation.responseFields(
                                         PayloadDocumentation.fieldWithPath("replyList")
                                                 .description("댓글 목록"),
-                                        PayloadDocumentation.fieldWithPath("replyList[*].member")
-                                                .description("댓글 작성자 정보"),
-                                        PayloadDocumentation.fieldWithPath("badgeList[*].content")
+                                        PayloadDocumentation.fieldWithPath("replyList[*].memberName")
+                                                .description("댓글 작성자 이름"),
+                                        PayloadDocumentation.fieldWithPath("replyList[*].content")
                                                 .description("댓글 내용")
                                 )
                         )
                 )
-    }
-
-    private fun registerReply() {
-        val member = Member(1, 1, "test")
-        val replyRequest = ReplyRegisterRequest("content")
-        BDDMockito.given(replyService.registerReply(1L, replyRequest, member)).willReturn(null)
     }
 }

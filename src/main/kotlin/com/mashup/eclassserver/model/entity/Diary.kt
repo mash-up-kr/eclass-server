@@ -11,11 +11,11 @@ data class Diary(
 
     val petId: Long,
 
-    @OneToOne(cascade = arrayOf(CascadeType.ALL))
+    @ManyToOne
     @JoinColumn(name = "badge_id")
-    val badge: Badge? = null,
+    var badge: Badge? = null,
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "member_id")
     val member: Member,
 

@@ -10,7 +10,6 @@ import com.mashup.eclassserver.service.DiaryService
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doNothing
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
@@ -22,12 +21,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import java.util.*
 
 @WebMvcTest(DiaryController::class)
-class DiaryControllerTest @Autowired constructor(
+class DiaryControllerTest : AbstractTestRestDocs() {
+
     @MockBean
-    private val diaryService: DiaryService,
+    lateinit var diaryService: DiaryService
+
     @MockBean
-    private val memberRepository: MemberRepository
-) : AbstractTestRestDocs() {
+    lateinit var memberRepository: MemberRepository
+
     @Test
     fun diarySubmitTest() {
         val testMember = Member(1, 1, "testNick")
@@ -53,7 +54,7 @@ class DiaryControllerTest @Autowired constructor(
         val jsonString = mapper.writeValueAsString(testRequest)
 
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/diary")
+            MockMvcRequestBuilders.post("/api/v1/diary")
                     .content(jsonString)
                     .contentType(MediaType.APPLICATION_JSON)
         )
@@ -78,7 +79,7 @@ class DiaryControllerTest @Autowired constructor(
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerX")
                                     .description("스티커 x 좌표 비율"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerY")
-                                    .description("스티커 y 좌표 비율"),
+                                    .description("스티커 y 좌표 비율")
                         )
                     )
                 )

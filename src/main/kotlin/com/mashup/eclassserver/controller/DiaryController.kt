@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RequestMapping(value = ["/api/v1/diary"])
+@RequestMapping("/api/v1/diary")
 @RestController
 class DiaryController(
     private val diaryService: DiaryService,

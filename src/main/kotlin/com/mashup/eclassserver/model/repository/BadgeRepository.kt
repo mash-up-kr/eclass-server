@@ -4,4 +4,5 @@ import com.mashup.eclassserver.model.entity.Badge
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface BadgeRepository : JpaRepository<Badge, Long> {
+    fun findBybadgeId(badgeId: Long): Badge?
 }

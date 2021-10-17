@@ -20,7 +20,7 @@ class CoverService(
 
     @Transactional
     fun register(memberId: Long, petId: Long, coverData: CoverData, imageFile: MultipartFile) {
-        val imageUrl = s3Supporter.transmit(imageFile)
+        val imageUrl = s3Supporter.transmit(imageFile, S3Supporter.COVERS)
         val cover = coverRepository.save(
             Cover(
                 petId = petId,

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping("/ap1/v1/badge")
+@RequestMapping("/api/v1/badge")
 @RestController
 class BadgeController(
     private val badgeService: BadgeService,

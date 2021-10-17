@@ -2,7 +2,7 @@ package com.mashup.eclassserver.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mashup.eclassserver.model.dto.AttachedStickerDto
-import com.mashup.eclassserver.model.dto.DiarySubmitRequest
+import com.mashup.eclassserver.model.dto.DiaryDto
 import com.mashup.eclassserver.model.dto.PictureSubmitRequest
 import com.mashup.eclassserver.model.entity.Member
 import com.mashup.eclassserver.model.repository.MemberRepository
@@ -31,10 +31,11 @@ class DiaryControllerTest @Autowired constructor(
     @Test
     fun diarySubmitTest() {
         val testMember = Member(1, 1, "testNick")
-        val testRequest = DiarySubmitRequest(
+        val testRequest = DiaryDto(
             "test",
             arrayListOf(
                 PictureSubmitRequest(
+                    1,
                     "testImgUrl.com",
                     false,
                     arrayListOf(

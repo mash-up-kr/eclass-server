@@ -1,6 +1,6 @@
 package com.mashup.eclassserver.model.entity
 
-import com.mashup.eclassserver.model.dto.DiarySubmitRequest
+import com.mashup.eclassserver.model.dto.DiaryDto
 import javax.persistence.*
 
 @Entity
@@ -25,13 +25,22 @@ data class Diary(
     @OneToMany(fetch = FetchType.LAZY, cascade = arrayOf(CascadeType.ALL))
     @JoinColumn(name = "diary_id")
     var diaryPictureList: MutableList<DiaryPicture> = mutableListOf()
-) : BaseEntity(){
-    companion object{
-        fun of(request: DiarySubmitRequest, member: Member) =
+) : BaseEntity() {
+    companion object {
+        fun of(request: DiaryDto, member: Member) =
                 Diary(
                     petId = member.petId,
                     member = member,
                     content = request.content
+                )
+
+        fun of(diary: Diary) =
+                DiaryDto(
+                    content = diary.content,
+                    pictureSubmitRequestList = diary.diaryPictureList
+                            .asSequence()
+                            .map { DiaryPicture.of(it) }
+                            .toList()
                 )
     }
 }

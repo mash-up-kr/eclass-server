@@ -11,13 +11,25 @@ data class DiaryPicture(
 
     val imageUrl: String,
 
-    val isThumbnail: Boolean
+    val isThumbnail: Boolean,
+
+    @Column(name = "diary_id")
+    val diaryId: Long
 ) : BaseEntity() {
     companion object {
-        fun of(request: PictureSubmitRequest) =
+        fun of(request: PictureSubmitRequest, diaryId: Long) =
                 DiaryPicture(
                     imageUrl = request.imageUrl,
-                    isThumbnail = request.isThumbnail
+                    isThumbnail = request.isThumbnail,
+                    diaryId = diaryId
+                )
+
+        fun of(diaryPicture: DiaryPicture) =
+                PictureSubmitRequest(
+                    diaryPictureId = diaryPicture.diaryPictureId,
+                    imageUrl = diaryPicture.imageUrl,
+                    isThumbnail = diaryPicture.isThumbnail,
+                    attachedStickerDtoList = mutableListOf()
                 )
     }
 }

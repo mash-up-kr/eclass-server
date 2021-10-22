@@ -37,19 +37,21 @@ include::{snippets}/cover/register/http-response.adoc[]
 
 ==== Curl Command
 
-include::{snippets}/badge/list/curl-request.adoc[]
+include::{snippets}/badge/{method}/curl-request.adoc[]
 
 ==== Http Request
 
-include::{snippets}/badge/list/http-request.adoc[]
+include::{snippets}/badge/{method}/http-request.adoc[]
 
 ==== Http Response
 
-include::{snippets}/badge/list/http-response.adoc[]
+include::{snippets}/badge/{method}/http-response.adoc[]
 
-=== Response Fields
+==== Response Fields
 
-include::{snippets}/badge/list/response-fields.adoc[]
+include::{snippets}/badge/{method}/response-fields.adoc[]
+
+== 다이어리
 
 === 다이어리 글쓰기 API
 
@@ -60,3 +62,47 @@ include::{snippets}/api/v1/diary/post/curl-request.adoc[]
 ==== Http Request
 
 include::{snippets}/api/v1/diary/post/http-request.adoc[]
+
+=== 다이어리 댓글 작성 API
+
+==== Curl Command
+
+include::{snippets}/api/v1/diary/reply/register/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/diary/reply/register/http-request.adoc[]
+
+=== 다이어리 댓글 수정 API
+
+==== Curl Command
+
+include::{snippets}/api/v1/diary/reply/edit/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/diary/reply/edit/http-request.adoc[]
+
+=== 다이어리 댓글 삭제 API
+
+==== Curl Command
+
+include::{snippets}/api/v1/diary/reply/delete/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/diary/reply/delete/http-request.adoc[]
+
+=== 다이어리 댓글 리스트 API
+
+==== Curl Command
+
+include::{snippets}/api/v1/diary/reply/list/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/diary/reply/list/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/api/v1/diary/reply/list/http-response.adoc[]

@@ -15,7 +15,6 @@ import com.nhaarman.mockitokotlin2.given
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.doNothing
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
@@ -27,9 +26,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import java.util.*
 
 @WebMvcTest(DiaryController::class)
-class DiaryControllerTest @Autowired constructor(
+class DiaryControllerTest : AbstractTestRestDocs() {
+
     @MockBean
-    private val diaryService: DiaryService,
+    lateinit var diaryService: DiaryService
+
     @MockBean
     private val memberRepository: MemberRepository,
     @MockBean

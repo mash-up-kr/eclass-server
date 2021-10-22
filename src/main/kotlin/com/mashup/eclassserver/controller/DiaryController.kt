@@ -1,5 +1,6 @@
 package com.mashup.eclassserver.controller
 
+import com.mashup.eclassserver.model.dto.DiaryDto
 import com.mashup.eclassserver.model.dto.DiarySubmitRequest
 import com.mashup.eclassserver.model.dto.ReplyEditRequest
 import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
@@ -11,23 +12,32 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping(value = ["/api/v1/diary"])
 @RestController
+@RequestMapping("/api/v1/diary")
 class DiaryController(
     private val diaryService: DiaryService,
     private val memberRepository: MemberRepository,
     private val replyService: ReplyService
 ) {
     @PostMapping
-    fun submitDiary(@RequestBody diarySubmitRequest: DiarySubmitRequest): ResponseEntity<*> {
-        val member = memberRepository.findById(1).get() //dummy data
+    fun submitDiary(@RequestBody diaryDto: DiaryDto): ResponseEntity<*> {
+        val member = memberRepository.findById(1).get()
 
-        diaryService.submitDiary(diarySubmitRequest, member)
+        diaryService.submitDiary(diaryDto, member)
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(null)
     }
 
+    @GetMapping
+    fun getDiary(): ResponseEntity<*> {
+        val member = memberRepository.findById(1).get()
+
+        val resultList = diaryService.getDiaryList(member)
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(resultList)
+                
     @GetMapping("/{diaryId}/reply/list")
     fun getDiaryReplyList(@PathVariable(value = "diaryId") diaryId: Long): ResponseEntity<*> {
         val replyResponse = replyService.getReplyList(diaryId)

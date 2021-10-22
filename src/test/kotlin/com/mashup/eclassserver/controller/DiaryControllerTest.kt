@@ -1,6 +1,9 @@
 package com.mashup.eclassserver.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.mashup.eclassserver.model.dto.AttachedStickerDto
+import com.mashup.eclassserver.model.dto.DiaryDto
+import com.mashup.eclassserver.model.dto.PictureSubmitRequest
 import com.mashup.eclassserver.constants.DEFAULT_OBJECT_MAPPER
 import com.mashup.eclassserver.infra.ECLogger
 import com.mashup.eclassserver.model.dto.*

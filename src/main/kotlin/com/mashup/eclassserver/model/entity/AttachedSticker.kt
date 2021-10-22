@@ -28,6 +28,14 @@ data class AttachedSticker(
                 attachedType = type
             )
         }
+
+        fun of(attachedSticker: AttachedSticker): AttachedStickerDto {
+            return AttachedStickerDto(
+                stickerId = attachedSticker.stickerId,
+                stickerX = attachedSticker.stickerX,
+                stickerY = attachedSticker.stickerY,
+            )
+        }
     }
 }
 

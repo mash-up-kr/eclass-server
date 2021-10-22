@@ -1,7 +1,8 @@
 package com.mashup.eclassserver.model.dto
 
 data class PictureSubmitRequest(
+    val diaryPictureId: Long?,
     val imageUrl: String,
     val isThumbnail: Boolean,
-    val attachedStickerDtoList: List<AttachedStickerDto>
+    var attachedStickerDtoList: MutableList<AttachedStickerDto>
 )

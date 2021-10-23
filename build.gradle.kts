@@ -34,9 +34,13 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
+    testImplementation("org.mockito:mockito-inline:2.21.0")
 
     asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.1.RELEASE")
 }
 
 tasks {

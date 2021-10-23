@@ -2,7 +2,6 @@ package com.mashup.eclassserver.service
 
 import com.mashup.eclassserver.exception.EclassException
 import com.mashup.eclassserver.exception.ErrorCode
-import com.mashup.eclassserver.model.dto.DiarySubmitRequest
 import com.mashup.eclassserver.model.dto.DiaryDto
 import com.mashup.eclassserver.model.dto.PictureSubmitRequest
 import com.mashup.eclassserver.model.entity.*
@@ -45,6 +44,24 @@ class DiaryService(
         val diary = diaryRepository.findBydiaryId(diaryId) ?: throw EclassException(ErrorCode.DIARY_NOT_FOUND)
         diary.badge = badge
         diaryRepository.save(diary)
+
+        @Transactional(readOnly = true)
+        fun getDiaryList(member: Member): List<DiaryDto> {
+            val resultList = diaryRepository.findAllByMember(member)
+                    .asSequence()
+                    .map { Diary.of(it) }
+                    .toList()
+            for (diaryDto in resultList) {
+                for (picDto in diaryDto.pictureSubmitRequestList) {
+                    picDto.attachedStickerDtoList.addAll(attachedStickerRepository
+                                                                 .findAllByAttachedIdAndAttachedType(picDto.diaryPictureId!!, AttachedType.DIARY).asSequence()
+                                                                 .map { AttachedSticker.of(it) }
+                                                                 .toList())
+                }
+            }
+            return resultList
+        }
+    }
 
     @Transactional(readOnly = true)
     fun getDiaryList(member: Member): List<DiaryDto> {

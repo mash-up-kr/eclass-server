@@ -1,7 +1,6 @@
 package com.mashup.eclassserver.controller
 
 import com.mashup.eclassserver.model.dto.DiaryDto
-import com.mashup.eclassserver.model.dto.DiarySubmitRequest
 import com.mashup.eclassserver.model.dto.ReplyEditRequest
 import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
 import com.mashup.eclassserver.model.entity.Member
@@ -37,39 +36,40 @@ class DiaryController(
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(resultList)
-                
-    @GetMapping("/{diaryId}/reply/list")
-    fun getDiaryReplyList(@PathVariable(value = "diaryId") diaryId: Long): ResponseEntity<*> {
-        val replyResponse = replyService.getReplyList(diaryId)
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(replyResponse)
-    }
+        @GetMapping("/{diaryId}/reply/list")
+        fun getDiaryReplyList(@PathVariable(value = "diaryId") diaryId: Long): ResponseEntity<*> {
+            val replyResponse = replyService.getReplyList(diaryId)
 
-    @PostMapping("/{diaryId}/reply/register")
-    fun registerReply(@PathVariable(value = "diaryId") diaryId: Long, @RequestBody replyRegisterRequest: ReplyRegisterRequest): ResponseEntity<*> {
-        val member = Member(1L, 1L, "eclass") // dummy
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(replyResponse)
+        }
 
-        replyService.registerReply(diaryId, replyRegisterRequest, member)
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(null)
-    }
+        @PostMapping("/{diaryId}/reply/register")
+        fun registerReply(@PathVariable(value = "diaryId") diaryId: Long, @RequestBody replyRegisterRequest: ReplyRegisterRequest): ResponseEntity<*> {
+            val member = Member(1L, 1L, "eclass") // dummy
 
-    @PutMapping("/{diaryId}/reply/edit/{replyId}")
-    fun editReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long, @RequestBody replyEditRequest: ReplyEditRequest): ResponseEntity<*> {
-        replyService.editReply(diaryId, replyId, replyEditRequest)
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(null)
-    }
+            replyService.registerReply(diaryId, replyRegisterRequest, member)
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(null)
+        }
 
-    @DeleteMapping("/{diaryId}/reply/delete/{replyId}")
-    fun deleteReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long): ResponseEntity<*> {
-        replyService.deleteReply(diaryId, replyId)
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(null)
+        @PutMapping("/{diaryId}/reply/edit/{replyId}")
+        fun editReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long, @RequestBody replyEditRequest: ReplyEditRequest): ResponseEntity<*> {
+            replyService.editReply(diaryId, replyId, replyEditRequest)
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(null)
+        }
+
+        @DeleteMapping("/{diaryId}/reply/delete/{replyId}")
+        fun deleteReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long): ResponseEntity<*> {
+            replyService.deleteReply(diaryId, replyId)
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(null)
+        }
     }
 }

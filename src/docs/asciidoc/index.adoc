@@ -63,6 +63,34 @@ include::{snippets}/api/v1/diary/post/curl-request.adoc[]
 
 include::{snippets}/api/v1/diary/post/http-request.adoc[]
 
+=== 다이어리 ID 리스트 API
+
+==== Curl Command
+
+include::{snippets}/api/v1/diary/get/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/diary/get/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/api/v1/diary/get/http-response.adoc[]
+
+=== 다이어리 ID로 조회
+
+==== Curl Command
+
+include::{snippets}/api/v1/diary/byId/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/diary/byId/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/api/v1/diary/byId/http-response.adoc[]
+
 === 다이어리 댓글 작성 API
 
 ==== Curl Command

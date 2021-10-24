@@ -28,7 +28,7 @@ class DiaryController(
                 .body(null)
     }
 
-    @GetMapping
+    @GetMapping("/list")
     fun getDiary(): ResponseEntity<*> {
         val member = memberRepository.findById(1).get()
 
@@ -36,6 +36,23 @@ class DiaryController(
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(resultList)
+    }
+
+    @GetMapping
+    fun getDiaryId(): ResponseEntity<*> {
+        val member = memberRepository.findById(1).get()
+
+        val resultList = diaryService.getDiaryIdList(member)
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(resultList)
+    }
+
+    @GetMapping("/{diaryId}")
+    fun getDiaryById(@PathVariable diaryId: Long): ResponseEntity<*> {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(diaryService.findDiaryById(diaryId))
     }
 
     @GetMapping("/{diaryId}/reply/list")

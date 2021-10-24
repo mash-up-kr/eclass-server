@@ -83,7 +83,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].imageUrl")
                                     .description("사진 이미지"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].thumbnail")
-                                    .description("썸네일 여부"),
+                                    .description("썸네일 여부(thumbnail아님!!! isThumbnail로 줘야함"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList")
                                     .description("스티커 정보"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerId")
@@ -180,6 +180,78 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                                     .description("댓글 작성자 이름"),
                             PayloadDocumentation.fieldWithPath("replyList[*].content")
                                     .description("댓글 내용")
+                        )
+                    )
+                )
+    }
+
+    @Test
+    fun getDiaryIdListTest() {
+        val member = Member(1, 1, "test")
+        `when`(memberRepository.findById(1)).thenReturn(Optional.of(member))
+        val diaryIdList = listOf(1L, 2L, 3L)
+        given(diaryService.getDiaryIdList(member)).willReturn(diaryIdList)
+
+        mockMvc.perform(MockMvcRequestBuilders.get("$DIARY_BASE_URL"))
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                    MockMvcRestDocumentation.document(
+                        "api/v1/diary/get",
+                        HeaderDocumentation.requestHeaders(),
+                        HeaderDocumentation.responseHeaders(),
+                        PayloadDocumentation.responseFields(
+                            PayloadDocumentation.fieldWithPath("[]")
+                                    .description("내용"),
+                        )
+                    )
+                )
+    }
+
+    @Test
+    fun getDiaryTest() {
+        val diaryDto = DiaryDto(
+            "test",
+            arrayListOf(
+                PictureSubmitRequest(
+                    1,
+                    "testImgUrl.com",
+                    false,
+                    arrayListOf(
+                        AttachedStickerDto(
+                            1, 33.3, 44.4
+                        )
+                    )
+                )
+            )
+        )
+        given(diaryService.findDiaryById(1)).willReturn(diaryDto)
+
+        mockMvc.perform(MockMvcRequestBuilders.get("$DIARY_BASE_URL/1"))
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                    MockMvcRestDocumentation.document(
+                        "api/v1/diary/byId",
+                        HeaderDocumentation.requestHeaders(),
+                        HeaderDocumentation.responseHeaders(),
+                        PayloadDocumentation.responseFields(
+                            PayloadDocumentation.fieldWithPath("content")
+                                    .description("내용"),
+                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList")
+                                    .description("제출된 사진들"),
+                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].diaryPictureId")
+                                    .description("다이어리 id"),
+                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].imageUrl")
+                                    .description("사진 이미지"),
+                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].isThumbnail")
+                                    .description("썸네일 여부"),
+                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList")
+                                    .description("스티커 정보"),
+                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerId")
+                                    .description("스티커 아이디"),
+                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerX")
+                                    .description("스티커 x 좌표 비율"),
+                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerY")
+                                    .description("스티커 y 좌표 비율"),
                         )
                     )
                 )

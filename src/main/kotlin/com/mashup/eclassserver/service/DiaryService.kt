@@ -79,4 +79,18 @@ class DiaryService(
         }
         return resultList
     }
+
+    @Transactional(readOnly = true)
+    fun getDiaryIdList(member: Member): List<Long> {
+        return diaryRepository.findAllByMember(member)
+                .asSequence()
+                .map { it.diaryId }
+                .toList()
+    }
+
+    @Transactional(readOnly = true)
+    fun findDiaryById(id: Long): DiaryDto {
+        val diary = diaryRepository.findBydiaryId(id) ?: throw EclassException(ErrorCode.DIARY_NOT_FOUND)
+        return Diary.of(diary)
+    }
 }

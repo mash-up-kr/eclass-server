@@ -24,10 +24,14 @@ data class Diary(
 
     @OneToMany(fetch = FetchType.LAZY, cascade = arrayOf(CascadeType.ALL))
     @JoinColumn(name = "diary_id")
-    var diaryPictureList: MutableList<DiaryPicture> = mutableListOf()
-) : BaseEntity() {
-    companion object {
-        fun of(request: DiaryDto, member: Member) =
+    var diaryPictureList: MutableList<DiaryPicture> = mutableListOf(),
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = arrayOf(CascadeType.ALL), orphanRemoval = true)
+    @JoinColumn(name = "diary_id")
+    var replyList: MutableList<Reply> = mutableListOf()
+) : BaseEntity(){
+    companion object{
+        fun of(request: DiarySubmitRequest, member: Member) =
                 Diary(
                     petId = member.petId,
                     member = member,

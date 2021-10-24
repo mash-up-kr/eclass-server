@@ -1,5 +1,3 @@
-package com.mashup.eclassserver.model.entity
-
 import com.mashup.eclassserver.model.dto.AttachedStickerDto
 import javax.persistence.*
 

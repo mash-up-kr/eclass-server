@@ -91,6 +91,13 @@ class DiaryService(
     @Transactional(readOnly = true)
     fun findDiaryById(id: Long): DiaryDto {
         val diary = diaryRepository.findBydiaryId(id) ?: throw EclassException(ErrorCode.DIARY_NOT_FOUND)
-        return Diary.of(diary)
+        val diaryDto = Diary.of(diary)
+        for (picDto in diaryDto.pictureSubmitRequestList) {
+            picDto.attachedStickerDtoList.addAll(attachedStickerRepository
+                                                         .findAllByAttachedIdAndAttachedType(picDto.diaryPictureId!!, AttachedType.DIARY).asSequence()
+                                                         .map { AttachedSticker.of(it) }
+                                                         .toList())
+        }
+        return diaryDto
     }
 }

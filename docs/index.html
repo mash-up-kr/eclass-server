@@ -473,29 +473,43 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_http_request_3">Http Request</a></li>
 </ul>
 </li>
-<li><a href="#_다이어리_댓글_작성_api">다이어리 댓글 작성 API</a>
+<li><a href="#_다이어리_id_리스트_api">다이어리 ID 리스트 API</a>
 <ul class="sectlevel3">
 <li><a href="#_curl_command_4">Curl Command</a></li>
 <li><a href="#_http_request_4">Http Request</a></li>
+<li><a href="#_http_response_3">Http Response</a></li>
 </ul>
 </li>
-<li><a href="#_다이어리_댓글_수정_api">다이어리 댓글 수정 API</a>
+<li><a href="#_다이어리_id로_조회">다이어리 ID로 조회</a>
 <ul class="sectlevel3">
 <li><a href="#_curl_command_5">Curl Command</a></li>
 <li><a href="#_http_request_5">Http Request</a></li>
+<li><a href="#_http_response_4">Http Response</a></li>
 </ul>
 </li>
-<li><a href="#_다이어리_댓글_삭제_api">다이어리 댓글 삭제 API</a>
+<li><a href="#_다이어리_댓글_작성_api">다이어리 댓글 작성 API</a>
 <ul class="sectlevel3">
 <li><a href="#_curl_command_6">Curl Command</a></li>
 <li><a href="#_http_request_6">Http Request</a></li>
 </ul>
 </li>
-<li><a href="#_다이어리_댓글_리스트_api">다이어리 댓글 리스트 API</a>
+<li><a href="#_다이어리_댓글_수정_api">다이어리 댓글 수정 API</a>
 <ul class="sectlevel3">
 <li><a href="#_curl_command_7">Curl Command</a></li>
 <li><a href="#_http_request_7">Http Request</a></li>
-<li><a href="#_http_response_3">Http Response</a></li>
+</ul>
+</li>
+<li><a href="#_다이어리_댓글_삭제_api">다이어리 댓글 삭제 API</a>
+<ul class="sectlevel3">
+<li><a href="#_curl_command_8">Curl Command</a></li>
+<li><a href="#_http_request_8">Http Request</a></li>
+</ul>
+</li>
+<li><a href="#_다이어리_댓글_리스트_api">다이어리 댓글 리스트 API</a>
+<ul class="sectlevel3">
+<li><a href="#_curl_command_9">Curl Command</a></li>
+<li><a href="#_http_request_9">Http Request</a></li>
+<li><a href="#_http_response_5">Http Response</a></li>
 </ul>
 </li>
 </ul>
@@ -514,7 +528,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'https://eclass.jonghyeon.com/api/v1/cover' -i -X POST \
     -H 'Content-Type: multipart/form-data;charset=UTF-8' \
     -F 'imageFile=                              ' \
-    -F 'coverData={"attachedStickerList":[{"stickerId":1,"stickerX":3.5,"stickerY":3.5}],"color":"0xFF","shapeType":"CIRCLE","shapeX":5.5,"shapeY":5.5,"targetDate":"2021-10-23"};type=application/json'</code></pre>
+    -F 'coverData={"attachedStickerList":[{"stickerId":1,"stickerX":3.5,"stickerY":3.5}],"color":"0xFF","shapeType":"CIRCLE","shapeX":5.5,"shapeY":5.5,"targetDate":"2021-10-24"};type=application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -534,7 +548,7 @@ Content-Disposition: form-data; name=imageFile
 Content-Disposition: form-data; name=coverData
 Content-Type: application/json
 
-{"attachedStickerList":[{"stickerId":1,"stickerX":3.5,"stickerY":3.5}],"color":"0xFF","shapeType":"CIRCLE","shapeX":5.5,"shapeY":5.5,"targetDate":"2021-10-23"}
+{"attachedStickerList":[{"stickerId":1,"stickerX":3.5,"stickerY":3.5}],"color":"0xFF","shapeType":"CIRCLE","shapeX":5.5,"shapeY":5.5,"targetDate":"2021-10-24"}
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
 </div>
 </div>
@@ -785,9 +799,91 @@ Host: eclass.jonghyeon.com
 </div>
 </div>
 <div class="sect2">
-<h3 id="_다이어리_댓글_작성_api"><a class="link" href="#_다이어리_댓글_작성_api">다이어리 댓글 작성 API</a></h3>
+<h3 id="_다이어리_id_리스트_api"><a class="link" href="#_다이어리_id_리스트_api">다이어리 ID 리스트 API</a></h3>
 <div class="sect3">
 <h4 id="_curl_command_4"><a class="link" href="#_curl_command_4">Curl Command</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'https://eclass.jonghyeon.com/api/v1/diary' -i -X GET</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_http_request_4"><a class="link" href="#_http_request_4">Http Request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/v1/diary HTTP/1.1
+Host: eclass.jonghyeon.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_http_response_3"><a class="link" href="#_http_response_3">Http Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 11
+
+[ 1, 2, 3 ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_다이어리_id로_조회"><a class="link" href="#_다이어리_id로_조회">다이어리 ID로 조회</a></h3>
+<div class="sect3">
+<h4 id="_curl_command_5"><a class="link" href="#_curl_command_5">Curl Command</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1' -i -X GET</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_http_request_5"><a class="link" href="#_http_request_5">Http Request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/v1/diary/1 HTTP/1.1
+Host: eclass.jonghyeon.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_http_response_4"><a class="link" href="#_http_response_4">Http Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 281
+
+{
+  "content" : "test",
+  "pictureSubmitRequestList" : [ {
+    "diaryPictureId" : 1,
+    "imageUrl" : "testImgUrl.com",
+    "isThumbnail" : false,
+    "attachedStickerDtoList" : [ {
+      "stickerId" : 1,
+      "stickerX" : 33.3,
+      "stickerY" : 44.4
+    } ]
+  } ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_다이어리_댓글_작성_api"><a class="link" href="#_다이어리_댓글_작성_api">다이어리 댓글 작성 API</a></h3>
+<div class="sect3">
+<h4 id="_curl_command_6"><a class="link" href="#_curl_command_6">Curl Command</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply/register' -i -X POST \
@@ -799,7 +895,7 @@ Host: eclass.jonghyeon.com
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_request_4"><a class="link" href="#_http_request_4">Http Request</a></h4>
+<h4 id="_http_request_6"><a class="link" href="#_http_request_6">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/v1/diary/1/reply/register HTTP/1.1
@@ -817,7 +913,7 @@ Host: eclass.jonghyeon.com
 <div class="sect2">
 <h3 id="_다이어리_댓글_수정_api"><a class="link" href="#_다이어리_댓글_수정_api">다이어리 댓글 수정 API</a></h3>
 <div class="sect3">
-<h4 id="_curl_command_5"><a class="link" href="#_curl_command_5">Curl Command</a></h4>
+<h4 id="_curl_command_7"><a class="link" href="#_curl_command_7">Curl Command</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply/edit/1' -i -X PUT \
@@ -829,7 +925,7 @@ Host: eclass.jonghyeon.com
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_request_5"><a class="link" href="#_http_request_5">Http Request</a></h4>
+<h4 id="_http_request_7"><a class="link" href="#_http_request_7">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">PUT /api/v1/diary/1/reply/edit/1 HTTP/1.1
@@ -847,7 +943,7 @@ Host: eclass.jonghyeon.com
 <div class="sect2">
 <h3 id="_다이어리_댓글_삭제_api"><a class="link" href="#_다이어리_댓글_삭제_api">다이어리 댓글 삭제 API</a></h3>
 <div class="sect3">
-<h4 id="_curl_command_6"><a class="link" href="#_curl_command_6">Curl Command</a></h4>
+<h4 id="_curl_command_8"><a class="link" href="#_curl_command_8">Curl Command</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply/delete/1' -i -X DELETE</code></pre>
@@ -855,7 +951,7 @@ Host: eclass.jonghyeon.com
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_request_6"><a class="link" href="#_http_request_6">Http Request</a></h4>
+<h4 id="_http_request_8"><a class="link" href="#_http_request_8">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /api/v1/diary/1/reply/delete/1 HTTP/1.1
@@ -867,7 +963,7 @@ Host: eclass.jonghyeon.com</code></pre>
 <div class="sect2">
 <h3 id="_다이어리_댓글_리스트_api"><a class="link" href="#_다이어리_댓글_리스트_api">다이어리 댓글 리스트 API</a></h3>
 <div class="sect3">
-<h4 id="_curl_command_7"><a class="link" href="#_curl_command_7">Curl Command</a></h4>
+<h4 id="_curl_command_9"><a class="link" href="#_curl_command_9">Curl Command</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply/list' -i -X GET</code></pre>
@@ -875,7 +971,7 @@ Host: eclass.jonghyeon.com</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_request_7"><a class="link" href="#_http_request_7">Http Request</a></h4>
+<h4 id="_http_request_9"><a class="link" href="#_http_request_9">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/v1/diary/1/reply/list HTTP/1.1
@@ -884,7 +980,7 @@ Host: eclass.jonghyeon.com</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_response_3"><a class="link" href="#_http_response_3">Http Response</a></h4>
+<h4 id="_http_response_5"><a class="link" href="#_http_response_5">Http Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
@@ -909,7 +1005,7 @@ Content-Length: 93
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-23 15:08:40 +0900
+Last updated 2021-10-24 19:47:08 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

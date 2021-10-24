@@ -1,5 +1,7 @@
 package com.mashup.eclassserver.service
 
+import com.mashup.eclassserver.exception.EclassException
+import com.mashup.eclassserver.exception.ErrorCode
 import com.mashup.eclassserver.model.dto.ReplyEditRequest
 import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
 import com.mashup.eclassserver.model.dto.ReplyResponse
@@ -30,8 +32,7 @@ class ReplyService(
 
     @Transactional
     fun editReply(diaryId: Long, replyId: Long, replyEditRequest: ReplyEditRequest) {
-        val reply = replyRepository.findByDiaryIdAndReplyId(diaryId, replyId)
-                .orElseThrow() // Todo: 없는 경우 예외 던지기, 예외 형식 만들어서?
+        val reply = replyRepository.findByDiaryIdAndReplyId(diaryId, replyId) ?: throw EclassException(ErrorCode.REPLY_NOT_FOUND)
         reply.content = replyEditRequest.content
         replyRepository.save(reply)
     }

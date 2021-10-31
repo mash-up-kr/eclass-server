@@ -209,7 +209,8 @@ class DiaryControllerTest : AbstractTestRestDocs() {
 
     @Test
     fun getDiaryTest() {
-        val diaryDto = DiaryDto(
+        val diaryDto = DiaryResponseDto(
+            1,
             "test",
             arrayListOf(
                 PictureSubmitRequest(
@@ -234,6 +235,8 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                         HeaderDocumentation.requestHeaders(),
                         HeaderDocumentation.responseHeaders(),
                         PayloadDocumentation.responseFields(
+                            PayloadDocumentation.fieldWithPath("diaryId")
+                                    .description("다이어리 id"),
                             PayloadDocumentation.fieldWithPath("content")
                                     .description("내용"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList")

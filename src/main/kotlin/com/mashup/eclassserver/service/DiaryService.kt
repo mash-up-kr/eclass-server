@@ -3,6 +3,7 @@ package com.mashup.eclassserver.service
 import com.mashup.eclassserver.exception.EclassException
 import com.mashup.eclassserver.exception.ErrorCode
 import com.mashup.eclassserver.model.dto.DiaryDto
+import com.mashup.eclassserver.model.dto.DiaryResponseDto
 import com.mashup.eclassserver.model.dto.PictureSubmitRequest
 import com.mashup.eclassserver.model.entity.*
 import com.mashup.eclassserver.model.repository.AttachedStickerRepository
@@ -44,30 +45,13 @@ class DiaryService(
         val diary = diaryRepository.findBydiaryId(diaryId) ?: throw EclassException(ErrorCode.DIARY_NOT_FOUND)
         diary.badge = badge
         diaryRepository.save(diary)
-
-        @Transactional(readOnly = true)
-        fun getDiaryList(member: Member): List<DiaryDto> {
-            val resultList = diaryRepository.findAllByMember(member)
-                    .asSequence()
-                    .map { Diary.of(it) }
-                    .toList()
-            for (diaryDto in resultList) {
-                for (picDto in diaryDto.pictureSubmitRequestList) {
-                    picDto.attachedStickerDtoList.addAll(attachedStickerRepository
-                                                                 .findAllByAttachedIdAndAttachedType(picDto.diaryPictureId!!, AttachedType.DIARY).asSequence()
-                                                                 .map { AttachedSticker.of(it) }
-                                                                 .toList())
-                }
-            }
-            return resultList
-        }
     }
 
     @Transactional(readOnly = true)
-    fun getDiaryList(member: Member): List<DiaryDto> {
+    fun getDiaryList(member: Member): List<DiaryResponseDto> {
         val resultList = diaryRepository.findAllByMember(member)
                 .asSequence()
-                .map { Diary.of(it) }
+                .map { DiaryResponseDto.of(it) }
                 .toList()
         for (diaryDto in resultList) {
             for (picDto in diaryDto.pictureSubmitRequestList) {
@@ -89,9 +73,9 @@ class DiaryService(
     }
 
     @Transactional(readOnly = true)
-    fun findDiaryById(id: Long): DiaryDto {
+    fun findDiaryById(id: Long): DiaryResponseDto {
         val diary = diaryRepository.findBydiaryId(id) ?: throw EclassException(ErrorCode.DIARY_NOT_FOUND)
-        val diaryDto = Diary.of(diary)
+        val diaryDto = DiaryResponseDto.of(diary)
         for (picDto in diaryDto.pictureSubmitRequestList) {
             picDto.attachedStickerDtoList.addAll(attachedStickerRepository
                                                          .findAllByAttachedIdAndAttachedType(picDto.diaryPictureId!!, AttachedType.DIARY).asSequence()

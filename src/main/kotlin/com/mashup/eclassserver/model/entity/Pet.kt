@@ -1,5 +1,6 @@
 package com.mashup.eclassserver.model.entity
 
+import com.mashup.eclassserver.model.dto.PetPostDto
 import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -14,5 +15,16 @@ data class Pet(
 
     val name: String,
 
-    val birthDate: LocalDateTime
-) : BaseEntity()
+    val birthDate: LocalDateTime,
+
+    var imageUrl: String?
+) : BaseEntity() {
+    companion object {
+        fun of(request: PetPostDto) =
+                Pet(
+                    name = request.name,
+                    imageUrl = null,
+                    birthDate = request.birthDate
+                )
+    }
+}

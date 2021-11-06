@@ -13,9 +13,9 @@ data class Pet(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val petId: Long = 0,
 
-    val name: String,
+    var name: String,
 
-    val birthDate: LocalDateTime,
+    var birthDate: LocalDateTime,
 
     var imageUrl: String?
 ) : BaseEntity() {

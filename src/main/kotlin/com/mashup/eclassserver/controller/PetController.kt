@@ -1,5 +1,6 @@
 package com.mashup.eclassserver.controller
 
+import com.mashup.eclassserver.model.dto.PetEditDto
 import com.mashup.eclassserver.model.dto.PetPostDto
 import com.mashup.eclassserver.model.dto.PetResponseDto
 import com.mashup.eclassserver.model.entity.Pet
@@ -33,5 +34,17 @@ class PetController(
         val pet = petService.findPet(member.petId)
         return ResponseEntity
                 .status(HttpStatus.OK).body(PetResponseDto.of(pet))
+    }
+
+    @PutMapping("/{petId}")
+    fun editPet(
+        @PathVariable(value = "petId") petId: Long,
+        @RequestPart petEditDto: PetEditDto,
+        @RequestParam imageFile: MultipartFile?
+    ): ResponseEntity<Unit> {
+        val pet = petService.findPet(petId)
+        petService.editPet(pet, petEditDto, imageFile)
+        return ResponseEntity
+                .status(HttpStatus.OK).build()
     }
 }

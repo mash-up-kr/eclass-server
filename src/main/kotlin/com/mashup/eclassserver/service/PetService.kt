@@ -2,6 +2,7 @@ package com.mashup.eclassserver.service
 
 import com.mashup.eclassserver.exception.EclassException
 import com.mashup.eclassserver.exception.ErrorCode
+import com.mashup.eclassserver.model.dto.PetEditDto
 import com.mashup.eclassserver.model.entity.Pet
 import com.mashup.eclassserver.model.repository.PetRepository
 import com.mashup.eclassserver.supporter.S3Supporter
@@ -27,5 +28,16 @@ class PetService(
     @Transactional(readOnly = true)
     fun findPet(petId: Long): Pet {
         return petRepository.findByIdOrNull(petId) ?: throw EclassException(ErrorCode.PET_NOT_FOUND)
+    }
+
+    @Transactional
+    fun editPet(pet: Pet, editDto: PetEditDto, imageFile: MultipartFile?): Pet {
+        editDto.birthDate?.let { pet.birthDate = editDto.birthDate }
+        editDto.name?.let { pet.name = editDto.name }
+        imageFile?.let {
+            val imageUrl = s3Supporter.transmit(imageFile, S3Supporter.PETS)
+            pet.imageUrl = imageUrl.url
+        }
+        return petRepository.save(pet)
     }
 }

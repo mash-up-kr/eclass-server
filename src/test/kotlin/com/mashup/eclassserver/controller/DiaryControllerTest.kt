@@ -4,14 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.mashup.eclassserver.constants.DEFAULT_OBJECT_MAPPER
 import com.mashup.eclassserver.infra.ECLogger
 import com.mashup.eclassserver.model.dto.*
+import com.mashup.eclassserver.model.entity.Badge
+import com.mashup.eclassserver.model.entity.Diary
 import com.mashup.eclassserver.model.entity.Member
 import com.mashup.eclassserver.model.repository.MemberRepository
+import com.mashup.eclassserver.service.BadgeService
 import com.mashup.eclassserver.service.DiaryService
 import com.mashup.eclassserver.service.ReplyService
 import com.nhaarman.mockitokotlin2.given
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.doNothing
+import org.mockito.Mockito.*
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
@@ -34,6 +36,9 @@ class DiaryControllerTest : AbstractTestRestDocs() {
     @MockBean
     lateinit var replyService: ReplyService
 
+    @MockBean
+    lateinit var badgeService: BadgeService
+
     companion object : ECLogger {
         const val DIARY_BASE_URL = "/api/v1/diary"
     }
@@ -54,10 +59,13 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                         )
                     )
                 )
-            )
+            ),
+            1
         )
-
-        doNothing().`when`(diaryService).submitDiary(testRequest, testMember)
+        val testBadge = Badge(1, "testBadge", "http://testBadge.com")
+        `when`(diaryService.submitDiary(testRequest, testMember)).thenReturn(Diary.of(testRequest, testMember))
+        doNothing().`when`(diaryService).saveBadge(0, testBadge)
+        `when`(badgeService.findBadgeById(any(Long::class.java))).thenReturn(testBadge)
         `when`(memberRepository.findById(1)).thenReturn(Optional.of(testMember))
 
         val mapper = ObjectMapper()
@@ -76,6 +84,8 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                         PayloadDocumentation.requestFields(
                             PayloadDocumentation.fieldWithPath("content")
                                     .description("내용"),
+                            PayloadDocumentation.fieldWithPath("badgeId")
+                                    .description("뱃지 id"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList")
                                     .description("제출된 사진들"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].diaryPictureId")
@@ -223,6 +233,11 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                         )
                     )
                 )
+            ),
+            BadgeResponseDto(
+                1,
+                "testName",
+                "http:testbadge.com"
             )
         )
         given(diaryService.findDiaryById(1)).willReturn(diaryDto)
@@ -239,6 +254,14 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                                     .description("다이어리 id"),
                             PayloadDocumentation.fieldWithPath("content")
                                     .description("내용"),
+                            PayloadDocumentation.fieldWithPath("badgeResponseDto")
+                                    .description("뱃지 정보"),
+                            PayloadDocumentation.fieldWithPath("badgeResponseDto.badgeId")
+                                    .description("뱃지 id"),
+                            PayloadDocumentation.fieldWithPath("badgeResponseDto.name")
+                                    .description("뱃지 이름"),
+                            PayloadDocumentation.fieldWithPath("badgeResponseDto.imageUrl")
+                                    .description("뱃지 이미지 url"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList")
                                     .description("제출된 사진들"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].diaryPictureId")
@@ -254,7 +277,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerX")
                                     .description("스티커 x 좌표 비율"),
                             PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerY")
-                                    .description("스티커 y 좌표 비율"),
+                                    .description("스티커 y 좌표 비율")
                         )
                     )
                 )

@@ -5,6 +5,7 @@ import com.mashup.eclassserver.model.dto.ReplyEditRequest
 import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
 import com.mashup.eclassserver.model.entity.Member
 import com.mashup.eclassserver.model.repository.MemberRepository
+import com.mashup.eclassserver.service.BadgeService
 import com.mashup.eclassserver.service.DiaryService
 import com.mashup.eclassserver.service.ReplyService
 import org.springframework.http.HttpStatus
@@ -16,13 +17,18 @@ import org.springframework.web.bind.annotation.*
 class DiaryController(
     private val diaryService: DiaryService,
     private val memberRepository: MemberRepository,
-    private val replyService: ReplyService
+    private val replyService: ReplyService,
+    private val badgeService: BadgeService
 ) {
     @PostMapping
     fun submitDiary(@RequestBody diaryDto: DiaryDto): ResponseEntity<*> {
         val member = memberRepository.findById(1).get()
 
-        diaryService.submitDiary(diaryDto, member)
+        val diary = diaryService.submitDiary(diaryDto, member)
+        diaryDto.badgeId?.let {
+            val badge = badgeService.findBadgeById(diaryDto.badgeId)
+            diaryService.saveBadge(diaryDto.badgeId, badge)
+        }
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(null)

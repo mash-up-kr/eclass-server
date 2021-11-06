@@ -6,7 +6,8 @@ import com.mashup.eclassserver.model.entity.DiaryPicture
 data class DiaryResponseDto(
     val diaryId: Long?,
     val content: String?,
-    val pictureSubmitRequestList: List<PictureSubmitRequest>
+    val pictureSubmitRequestList: List<PictureSubmitRequest>,
+    val badgeResponseDto: BadgeResponseDto?
 ) {
     companion object {
         fun of(diary: Diary) =
@@ -16,7 +17,8 @@ data class DiaryResponseDto(
                     pictureSubmitRequestList = diary.diaryPictureList
                             .asSequence()
                             .map { DiaryPicture.of(it) }
-                            .toList()
+                            .toList(),
+                    badgeResponseDto = diary.badge?.let { BadgeResponseDto.of(it) }
                 )
     }
 }

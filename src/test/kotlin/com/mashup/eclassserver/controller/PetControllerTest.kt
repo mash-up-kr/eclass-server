@@ -3,13 +3,17 @@ package com.mashup.eclassserver.controller
 import com.mashup.eclassserver.constants.DEFAULT_OBJECT_MAPPER
 import com.mashup.eclassserver.infra.ECLogger
 import com.mashup.eclassserver.model.dto.PetPostDto
-import com.mashup.eclassserver.model.dto.PetResponseDto
+import com.mashup.eclassserver.model.entity.Member
+import com.mashup.eclassserver.model.entity.Pet
+import com.mashup.eclassserver.model.repository.MemberRepository
 import com.mashup.eclassserver.service.PetService
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito.`when`
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.mock.web.MockMultipartFile
+import org.springframework.restdocs.headers.HeaderDocumentation
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
 import org.springframework.restdocs.payload.PayloadDocumentation
 import org.springframework.restdocs.request.RequestDocumentation
@@ -17,14 +21,18 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.time.LocalDateTime
+import java.util.*
 
 @WebMvcTest(PetController::class)
 internal class PetControllerTest : AbstractTestRestDocs() {
     @MockBean
     private lateinit var petService: PetService
 
+    @MockBean
+    private lateinit var memberRepository: MemberRepository
+
     companion object : ECLogger {
-        const val COVER_BASE_URL = "/api/v1/pet"
+        const val PET_BASE_URL = "/api/v1/pet"
     }
 
     @Test
@@ -34,9 +42,9 @@ internal class PetControllerTest : AbstractTestRestDocs() {
             name = "testName",
             birthDate = LocalDateTime.now()
         )
-        val petData = MockMultipartFile("coverData", "", MediaType.APPLICATION_JSON_VALUE, DEFAULT_OBJECT_MAPPER.writeValueAsString(petPostDto).toByteArray())
+        val petData = MockMultipartFile("petPostDto", "", MediaType.APPLICATION_JSON_VALUE, DEFAULT_OBJECT_MAPPER.writeValueAsString(petPostDto).toByteArray())
         mockMvc.perform(
-            MockMvcRequestBuilders.multipart(PetControllerTest.COVER_BASE_URL)
+            MockMvcRequestBuilders.multipart(PET_BASE_URL)
                     .file(imageFile)
                     .file(petData)
         )
@@ -51,15 +59,32 @@ internal class PetControllerTest : AbstractTestRestDocs() {
                         ),
                         PayloadDocumentation.requestPartFields(
                             "petPostDto",
-                            PayloadDocumentation.fieldWithPath("color").description("색상 값"),
-                            PayloadDocumentation.fieldWithPath("shapeType").description("cropping 타입"),
-                            PayloadDocumentation.fieldWithPath("shapeX").description("cropping x 좌표 비율"),
-                            PayloadDocumentation.fieldWithPath("shapeY").description("cropping Y 좌표 비율"),
-                            PayloadDocumentation.fieldWithPath("targetDate").description("커버 타겟 날짜(년월)"),
-                            PayloadDocumentation.fieldWithPath("attachedStickerList").description("적용된 스티커 리스트"),
-                            PayloadDocumentation.fieldWithPath("attachedStickerList[].stickerId").description("스티커 id"),
-                            PayloadDocumentation.fieldWithPath("attachedStickerList[].stickerX").description("스티커 x 좌표 비율"),
-                            PayloadDocumentation.fieldWithPath("attachedStickerList[].stickerY").description("스티커 y 좌표 비율")
+                            PayloadDocumentation.fieldWithPath("name").description("펫 이름"),
+                            PayloadDocumentation.fieldWithPath("birthDate").description("생일 ex)2020-01-01"),
+                        )
+                    )
+                )
+    }
+
+    @Test
+    fun getPetTest() {
+        val testMember = Member(1, 1, "testNick")
+        val testPet = Pet(1, "testPet", LocalDateTime.now(), "http://testPetUrl.com")
+        `when`(memberRepository.findById(1)).thenReturn(Optional.of(testMember))
+        `when`(petService.findPet(1)).thenReturn(testPet)
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/pet"))
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                    MockMvcRestDocumentation.document(
+                        "api/v1/pet/get",
+                        HeaderDocumentation.responseHeaders(),
+                        PayloadDocumentation.responseFields(
+                            PayloadDocumentation.fieldWithPath("name")
+                                    .description("펫 이름"),
+                            PayloadDocumentation.fieldWithPath("birthDate")
+                                    .description("펫 생년월일"),
+                            PayloadDocumentation.fieldWithPath("imageUrl")
+                                    .description("펫 이미지 url"),
                         )
                     )
                 )

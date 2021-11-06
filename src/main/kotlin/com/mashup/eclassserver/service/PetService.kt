@@ -16,9 +16,11 @@ class PetService(
     private val s3Supporter: S3Supporter
 ) {
     @Transactional
-    fun savePet(pet: Pet, imageFile: MultipartFile): Pet {
-        val imageUrl = s3Supporter.transmit(imageFile, S3Supporter.PETS)
-        pet.imageUrl = imageUrl.url
+    fun savePet(pet: Pet, imageFile: MultipartFile?): Pet {
+        imageFile?.let {
+            val imageUrl = s3Supporter.transmit(imageFile, S3Supporter.PETS)
+            pet.imageUrl = imageUrl.url
+        }
         return petRepository.save(pet)
     }
 

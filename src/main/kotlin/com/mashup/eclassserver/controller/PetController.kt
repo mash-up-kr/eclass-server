@@ -17,7 +17,7 @@ class PetController(
     val memberRepository: MemberRepository
 ) {
     @PostMapping
-    fun savePet(@RequestPart petPostDto: PetPostDto, @RequestParam imageFile: MultipartFile): ResponseEntity<Unit> {
+    fun savePet(@RequestPart petPostDto: PetPostDto, @RequestParam imageFile: MultipartFile?): ResponseEntity<Unit> {
         //JWT 멤버 꺼내오기
         val pet = Pet.of(petPostDto)
         petService.savePet(pet, imageFile)

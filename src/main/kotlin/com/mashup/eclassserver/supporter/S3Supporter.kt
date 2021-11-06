@@ -32,6 +32,8 @@ class S3Supporter(
         const val COVERS: String = "covers"
         const val DIARYPICTURES: String = "diary-pictures"
         const val STICKERS: String = "stickers"
+        const val MEMBERS: String = "members"
+        const val PETS: String = "pets"
     }
 }
 

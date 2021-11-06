@@ -19,14 +19,15 @@ class DiaryService(
     private val attachedStickerRepository: AttachedStickerRepository
 ) {
     @Transactional
-    fun submitDiary(diaryDto: DiaryDto, member: Member) {
-        saveDiaryWithPictureList(diaryDto, member)
+    fun submitDiary(diaryDto: DiaryDto, member: Member): Diary {
+        return saveDiaryWithPictureList(diaryDto, member)
     }
 
-    private fun saveDiaryWithPictureList(diaryDto: DiaryDto, member: Member) {
+    private fun saveDiaryWithPictureList(diaryDto: DiaryDto, member: Member): Diary {
         val diary = Diary.of(diaryDto, member)
         diaryRepository.save(diary)
         diaryDto.pictureSubmitRequestList.map { saveDiaryPictureAndStickers(diary, member, it) }
+        return diary
     }
 
     private fun saveDiaryPictureAndStickers(diary: Diary, member: Member, pictureSubmitRequest: PictureSubmitRequest) {

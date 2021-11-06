@@ -37,14 +37,5 @@ data class Diary(
                     member = member,
                     content = request.content
                 )
-
-        fun of(diary: Diary) =
-                DiaryDto(
-                    content = diary.content,
-                    pictureSubmitRequestList = diary.diaryPictureList
-                            .asSequence()
-                            .map { DiaryPicture.of(it) }
-                            .toList()
-                )
     }
 }

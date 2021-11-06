@@ -65,7 +65,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
         val testBadge = Badge(1, "testBadge", "http://testBadge.com")
         `when`(diaryService.submitDiary(testRequest, testMember)).thenReturn(Diary.of(testRequest, testMember))
         doNothing().`when`(diaryService).saveBadge(0, testBadge)
-        `when`(badgeService.findBadgeById(any(Long::class.java))).thenReturn(testBadge)
+        `when`(badgeService.findBadgeById(anyLong())).thenReturn(testBadge)
         `when`(memberRepository.findById(1)).thenReturn(Optional.of(testMember))
 
         val mapper = ObjectMapper()

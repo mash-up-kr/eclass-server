@@ -1,5 +1,6 @@
 package com.mashup.eclassserver.model.entity
 
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
@@ -7,6 +8,7 @@ data class Cover(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val coverId: Long = 0,
     val petId: Long,
+    val targetDate: String,
     val imageUrl: String,
     val color: String,
     @Enumerated(EnumType.STRING)

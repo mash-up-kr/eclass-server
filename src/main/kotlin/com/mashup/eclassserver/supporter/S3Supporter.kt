@@ -29,9 +29,9 @@ class S3Supporter(
     }
 
     companion object {
-        val COVERS: String = "covers"
-        val DIARYPICTURES: String = "diary-pictures"
-        val STICKERS: String = "stickers"
+        const val COVERS: String = "covers"
+        const val DIARYPICTURES: String = "diary-pictures"
+        const val STICKERS: String = "stickers"
     }
 }
 

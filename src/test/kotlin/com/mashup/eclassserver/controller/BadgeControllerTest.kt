@@ -40,7 +40,7 @@ internal class BadgeControllerTest : AbstractTestRestDocs() {
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                         MockMvcRestDocumentation.document(
-                                "api/v1/badge/list/get",
+                                "badge/{methodName}",
                                 HeaderDocumentation.responseHeaders(),
                                 PayloadDocumentation.responseFields(
                                         PayloadDocumentation.fieldWithPath("badgeList")
@@ -68,7 +68,7 @@ internal class BadgeControllerTest : AbstractTestRestDocs() {
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                     MockMvcRestDocumentation.document(
-                        "api/v1/badge/post",
+                        "badge/{methodName}",
                         HeaderDocumentation.responseHeaders(),
                         PayloadDocumentation.requestFields(
                             PayloadDocumentation.fieldWithPath("diaryId")

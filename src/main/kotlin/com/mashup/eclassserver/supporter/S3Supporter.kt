@@ -32,6 +32,8 @@ class S3Supporter(
         val COVERS: String = "covers"
         val DIARYPICTURES: String = "diary-pictures"
         val STICKERS: String = "stickers"
+        val MEMBERS: String = "members"
+        val PETS: String = "pets"
     }
 }
 

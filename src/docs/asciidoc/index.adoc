@@ -134,3 +134,23 @@ include::{snippets}/api/v1/diary/reply/list/http-request.adoc[]
 ==== Http Response
 
 include::{snippets}/api/v1/diary/reply/list/http-response.adoc[]
+
+== Member
+
+=== 회원가입
+
+==== Curl Command
+
+include::{snippets}/api/v1/member/signUp/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/member/signUp/http-request.adoc[]
+
+==== Request Parts
+
+include::{snippets}/api/v1/member/signUp/request-parts.adoc[]
+
+==== signUpRequestDto
+
+include::{snippets}/api/v1/member/signUp/request-part-signUpRequestDto-fields.adoc[]

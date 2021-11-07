@@ -1,6 +1,5 @@
 package com.mashup.eclassserver.model.entity
 
-import com.mashup.eclassserver.model.dto.SignUpRequest
 import javax.persistence.*
 
 @Entity
@@ -21,7 +20,4 @@ data class Member(
     var imageUrl: String? = null,
 
     val relationship: String = ""
-) : BaseEntity() {
-    companion object {
-    }
-}
+)

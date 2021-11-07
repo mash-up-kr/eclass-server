@@ -2,12 +2,13 @@ package com.mashup.eclassserver.service
 
 import com.mashup.eclassserver.exception.EclassException
 import com.mashup.eclassserver.exception.ErrorCode
-import com.mashup.eclassserver.model.dto.SignUpRequest
+import com.mashup.eclassserver.model.dto.SignUpRequestDto
 import com.mashup.eclassserver.model.entity.Member
 import com.mashup.eclassserver.model.repository.MemberRepository
 import com.mashup.eclassserver.supporter.S3Supporter
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile
 
 @Service
@@ -16,7 +17,9 @@ class MemberService(
     private val s3Supporter: S3Supporter,
     private val passwordEncoder: PasswordEncoder
 ) {
-    fun signUp(signUpRequest: SignUpRequest, imageFile: MultipartFile?){
+
+    @Transactional
+    fun signUp(signUpRequest: SignUpRequestDto, imageFile: MultipartFile?): Member {
         validateSignUpData(signUpRequest.email, signUpRequest.password)
         val member = Member(
                 email = signUpRequest.email,
@@ -27,7 +30,7 @@ class MemberService(
             val imageUrl = s3Supporter.transmit(imageFile, S3Supporter.MEMBERS)
             member.imageUrl = imageUrl.url
         }
-        memberRepository.save(member)
+        return memberRepository.save(member)
     }
 
     fun validateSignUpData(email: String, password: String) {

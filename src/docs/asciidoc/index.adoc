@@ -10,6 +10,8 @@ eclass-api
 
 == Cover
 
+=== Cover 등록(저장)
+
 ==== Curl Command
 
 include::{snippets}/cover/register/curl-request.adoc[]
@@ -30,26 +32,45 @@ include::{snippets}/cover/register/request-part-coverData-fields.adoc[]
 
 include::{snippets}/cover/register/http-response.adoc[]
 
-=== Cover 등록(저장)
+=== Cover home
 
+==== Curl Command
+
+include::{snippets}/cover/home/curl-request.adoc[]
+
+==== Path parameters
+
+include::{snippets}/cover/home/path-parameters.adoc[]
+
+==== Http Request
+
+include::{snippets}/cover/home/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/cover/home/http-response.adoc[]
+
+==== Response Fields
+
+include::{snippets}/cover/home/response-fields.adoc[]
 
 == Badge API
 
 ==== Curl Command
 
-include::{snippets}/badge/{method}/curl-request.adoc[]
+include::{snippets}/badge/getBadgeList/curl-request.adoc[]
 
 ==== Http Request
 
-include::{snippets}/badge/{method}/http-request.adoc[]
+include::{snippets}/badge/getBadgeList/http-request.adoc[]
 
 ==== Http Response
 
-include::{snippets}/badge/{method}/http-response.adoc[]
+include::{snippets}/badge/getBadgeList/http-response.adoc[]
 
 ==== Response Fields
 
-include::{snippets}/badge/{method}/response-fields.adoc[]
+include::{snippets}/badge/getBadgeList/response-fields.adoc[]
 
 == 다이어리
 
@@ -148,3 +169,54 @@ include::{snippets}/api/v1/diary/reply/list/http-request.adoc[]
 ==== Http Response
 
 include::{snippets}/api/v1/diary/reply/list/http-response.adoc[]
+
+== Member
+
+=== 회원가입
+
+==== Curl Command
+
+include::{snippets}/member/signUpTest/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/member/signUpTest/http-request.adoc[]
+
+==== Request Parts
+
+include::{snippets}/member/signUpTest/request-parts.adoc[]
+
+==== signUpRequestDto
+
+include::{snippets}/member/signUpTest/request-part-signUpRequestDto-fields.adoc[]
+
+== Pet
+
+=== 펫 저장 API
+
+==== Curl Command
+
+include::{snippets}/pet/savePetTest/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/pet/savePetTest/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/pet/savePetTest/http-response.adoc[]
+
+=== 펫 조회 API
+
+==== Curl Command
+
+include::{snippets}/api/v1/pet/get/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/pet/get/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/api/v1/pet/get/http-response.adoc[]
+

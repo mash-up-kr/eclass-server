@@ -17,6 +17,6 @@ data class CoverData(
     val shapeX: Double,
     val shapeY: Double,
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    val targetDate: LocalDate
+    @JsonFormat(pattern = "yyMM")
+    val targetDate: String
 )

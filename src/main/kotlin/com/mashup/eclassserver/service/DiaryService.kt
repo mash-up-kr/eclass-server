@@ -11,6 +11,7 @@ import com.mashup.eclassserver.model.repository.DiaryPictureRepository
 import com.mashup.eclassserver.model.repository.DiaryRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 
 @Service
 class DiaryService(
@@ -60,6 +61,22 @@ class DiaryService(
                                                              .findAllByAttachedIdAndAttachedType(picDto.diaryPictureId!!, AttachedType.DIARY).asSequence()
                                                              .map { AttachedSticker.of(it) }
                                                              .toList())
+            }
+        }
+        return resultList
+    }
+
+    @Transactional(readOnly = true)
+    fun getDiaryListByDate(member: Member, year: Int, month: Int): List<DiaryResponseDto> {
+        val startDate = LocalDate.of(year, month, 1).minusDays(1)
+        val endDate = LocalDate.of(year, month, 1).plusMonths(1)
+        val resultList = diaryRepository.findAllCreatedAtBetweenAndMember(startDate, endDate, member)
+                .map { DiaryResponseDto.of(it) }
+        for (diaryDto in resultList) {
+            for (picDto in diaryDto.pictureSubmitRequestList) {
+                picDto.attachedStickerDtoList.addAll(attachedStickerRepository
+                                                             .findAllByAttachedIdAndAttachedType(picDto.diaryPictureId!!, AttachedType.DIARY)
+                                                             .map { AttachedSticker.of(it) })
             }
         }
         return resultList

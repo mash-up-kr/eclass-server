@@ -10,5 +10,13 @@ data class Member(
 
     val petId: Long = 0,
 
-    val nickname: String
-) : BaseEntity()
+    val nickname: String,
+
+    val email: String,
+
+    val password: String,
+
+    var imageUrl: String? = null,
+
+    val relationship: String = ""
+)

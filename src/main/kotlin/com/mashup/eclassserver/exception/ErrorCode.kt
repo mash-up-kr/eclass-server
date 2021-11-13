@@ -20,5 +20,10 @@ enum class ErrorCode(val httpStatus: Int, val description: String) {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Server Error"),
     INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST.value(), " Invalid Type Value"),
     HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN.value(), "Access is Denied"),
-    ETC_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "내부 서버 오류입니다.")
+    ETC_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "내부 서버 오류입니다."),
+
+    // login
+    EMPTY_EMAIL_OR_PASSWORD(HttpStatus.BAD_REQUEST.value(), "Empty email or password"),
+    DUPLICATE_EMAIL(HttpStatus.BAD_REQUEST.value(), "Duplicate email")
+
 }

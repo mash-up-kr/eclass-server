@@ -31,7 +31,7 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:4.4.0")
     kapt("com.querydsl:querydsl-apt:4.4.0:jpa")
 
-    runtimeOnly("com.h2database:h2")
+    testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
@@ -39,6 +39,8 @@ dependencies {
 
     asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 
     implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.1.RELEASE")
 }

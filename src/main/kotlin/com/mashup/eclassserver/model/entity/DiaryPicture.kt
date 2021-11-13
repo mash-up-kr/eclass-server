@@ -1,5 +1,6 @@
 package com.mashup.eclassserver.model.entity
 
+import com.mashup.eclassserver.model.dto.PictureRequestDto
 import com.mashup.eclassserver.model.dto.PictureSubmitRequest
 import javax.persistence.*
 
@@ -18,6 +19,13 @@ data class DiaryPicture(
 ) : BaseEntity() {
     companion object {
         fun of(request: PictureSubmitRequest, diaryId: Long) =
+                DiaryPicture(
+                    imageUrl = request.imageUrl,
+                    isThumbnail = request.isThumbnail,
+                    diaryId = diaryId
+                )
+
+        fun of(request: PictureRequestDto, diaryId: Long) =
                 DiaryPicture(
                     imageUrl = request.imageUrl,
                     isThumbnail = request.isThumbnail,

@@ -1,7 +1,7 @@
 package com.mashup.eclassserver.model.dto
 
-data class DiaryDto(
+data class DiaryRequestDto(
     val content: String?,
-    val pictureSubmitRequestList: List<PictureSubmitRequest>,
+    val pictureList: List<PictureRequestDto>,
     val badgeId: Long?
 )

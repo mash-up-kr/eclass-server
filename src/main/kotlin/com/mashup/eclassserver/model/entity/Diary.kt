@@ -1,6 +1,7 @@
 package com.mashup.eclassserver.model.entity
 
 import com.mashup.eclassserver.model.dto.DiaryDto
+import com.mashup.eclassserver.model.dto.DiaryRequestDto
 import javax.persistence.*
 
 @Entity
@@ -38,13 +39,11 @@ data class Diary(
                     content = request.content
                 )
 
-        fun of(diary: Diary) =
-                DiaryDto(
-                    content = diary.content,
-                    pictureSubmitRequestList = diary.diaryPictureList
-                            .asSequence()
-                            .map { DiaryPicture.of(it) }
-                            .toList()
+        fun of(request: DiaryRequestDto, member: Member) =
+                Diary(
+                    petId = member.petId,
+                    member = member,
+                    content = request.content
                 )
     }
 }

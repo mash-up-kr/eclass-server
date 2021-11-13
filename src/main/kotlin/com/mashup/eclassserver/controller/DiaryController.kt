@@ -1,10 +1,12 @@
 package com.mashup.eclassserver.controller
 
-import com.mashup.eclassserver.model.dto.DiaryDto
+import com.mashup.eclassserver.model.dto.DiaryRequestDto
+import com.mashup.eclassserver.model.dto.DiaryResponseDto
 import com.mashup.eclassserver.model.dto.ReplyEditRequest
 import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
 import com.mashup.eclassserver.model.entity.Member
 import com.mashup.eclassserver.model.repository.MemberRepository
+import com.mashup.eclassserver.service.BadgeService
 import com.mashup.eclassserver.service.DiaryService
 import com.mashup.eclassserver.service.ReplyService
 import org.springframework.http.HttpStatus
@@ -16,30 +18,36 @@ import org.springframework.web.bind.annotation.*
 class DiaryController(
     private val diaryService: DiaryService,
     private val memberRepository: MemberRepository,
-    private val replyService: ReplyService
+    private val replyService: ReplyService,
+    private val badgeService: BadgeService
 ) {
     @PostMapping
-    fun submitDiary(@RequestBody diaryDto: DiaryDto): ResponseEntity<*> {
+    fun submitDiary(@RequestBody diaryDto: DiaryRequestDto): ResponseEntity<Unit> {
         val member = memberRepository.findById(1).get()
 
-        diaryService.submitDiary(diaryDto, member)
+        val diary = diaryService.submitDiary(diaryDto, member)
+        diaryDto.badgeId?.let {
+            val badge = badgeService.findBadgeById(diaryDto.badgeId)
+            diaryService.saveBadge(diaryDto.badgeId, badge)
+        }
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(null)
     }
 
     @GetMapping("/list")
-    fun getDiary(): ResponseEntity<*> {
+    fun getDiary(
+        @RequestParam(name = "year") year: Int,
+        @RequestParam(name = "month") month: Int
+    ): ResponseEntity<List<DiaryResponseDto>> {
         val member = memberRepository.findById(1).get()
-
-        val resultList = diaryService.getDiaryList(member)
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(resultList)
+                .body(diaryService.getDiaryListByDate(member, year, month))
     }
 
     @GetMapping
-    fun getDiaryId(): ResponseEntity<*> {
+    fun getDiaryId(): ResponseEntity<List<Long>> {
         val member = memberRepository.findById(1).get()
 
         val resultList = diaryService.getDiaryIdList(member)
@@ -49,14 +57,14 @@ class DiaryController(
     }
 
     @GetMapping("/{diaryId}")
-    fun getDiaryById(@PathVariable diaryId: Long): ResponseEntity<*> {
+    fun getDiaryById(@PathVariable diaryId: Long): ResponseEntity<DiaryResponseDto> {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(diaryService.findDiaryById(diaryId))
     }
 
-    @GetMapping("/{diaryId}/reply/list")
-    fun getDiaryReplyList(@PathVariable(value = "diaryId") diaryId: Long): ResponseEntity<*> {
+    @GetMapping("/{diaryId}/reply")
+    fun getDiaryReplyList(@PathVariable diaryId: Long): ResponseEntity<*> {
         val replyResponse = replyService.getReplyList(diaryId)
 
         return ResponseEntity
@@ -64,9 +72,9 @@ class DiaryController(
                 .body(replyResponse)
     }
 
-    @PostMapping("/{diaryId}/reply/register")
-    fun registerReply(@PathVariable(value = "diaryId") diaryId: Long, @RequestBody replyRegisterRequest: ReplyRegisterRequest): ResponseEntity<*> {
-        val member = Member(1L, 1L, "eclass") // dummy
+    @PostMapping("/{diaryId}/reply")
+    fun registerReply(@PathVariable diaryId: Long, @RequestBody replyRegisterRequest: ReplyRegisterRequest): ResponseEntity<*> {
+        val member = Member(1L, 1L, "eclass", "test@test.com", "1234") // dummy
 
         replyService.registerReply(diaryId, replyRegisterRequest, member)
         return ResponseEntity
@@ -74,16 +82,16 @@ class DiaryController(
                 .body(null)
     }
 
-    @PutMapping("/{diaryId}/reply/edit/{replyId}")
-    fun editReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long, @RequestBody replyEditRequest: ReplyEditRequest): ResponseEntity<*> {
+    @PutMapping("/{diaryId}/reply/{replyId}")
+    fun editReply(@PathVariable diaryId: Long, @PathVariable replyId: Long, @RequestBody replyEditRequest: ReplyEditRequest): ResponseEntity<*> {
         replyService.editReply(diaryId, replyId, replyEditRequest)
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(null)
     }
 
-    @DeleteMapping("/{diaryId}/reply/delete/{replyId}")
-    fun deleteReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long): ResponseEntity<*> {
+    @DeleteMapping("/{diaryId}/reply/{replyId}")
+    fun deleteReply(@PathVariable diaryId: Long, @PathVariable replyId: Long): ResponseEntity<*> {
         replyService.deleteReply(diaryId, replyId)
         return ResponseEntity
                 .status(HttpStatus.OK)

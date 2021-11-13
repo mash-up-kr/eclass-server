@@ -116,45 +116,45 @@ include::{snippets}/api/v1/diary/byId/http-response.adoc[]
 
 ==== Curl Command
 
-include::{snippets}/api/v1/diary/reply/register/curl-request.adoc[]
+include::{snippets}/diary/replyRegisterTest/curl-request.adoc[]
 
 ==== Http Request
 
-include::{snippets}/api/v1/diary/reply/register/http-request.adoc[]
+include::{snippets}/diary/replyRegisterTest/http-request.adoc[]
 
 === 다이어리 댓글 수정 API
 
 ==== Curl Command
 
-include::{snippets}/api/v1/diary/reply/edit/curl-request.adoc[]
+include::{snippets}/diary/replyEditTest/curl-request.adoc[]
 
 ==== Http Request
 
-include::{snippets}/api/v1/diary/reply/edit/http-request.adoc[]
+include::{snippets}/diary/replyEditTest/http-request.adoc[]
 
 === 다이어리 댓글 삭제 API
 
 ==== Curl Command
 
-include::{snippets}/api/v1/diary/reply/delete/curl-request.adoc[]
+include::{snippets}/diary/replyDeleteTest/curl-request.adoc[]
 
 ==== Http Request
 
-include::{snippets}/api/v1/diary/reply/delete/http-request.adoc[]
+include::{snippets}/diary/replyDeleteTest/http-request.adoc[]
 
 === 다이어리 댓글 리스트 API
 
 ==== Curl Command
 
-include::{snippets}/api/v1/diary/reply/list/curl-request.adoc[]
+include::{snippets}/diary/getReplyListTest/curl-request.adoc[]
 
 ==== Http Request
 
-include::{snippets}/api/v1/diary/reply/list/http-request.adoc[]
+include::{snippets}/diary/getReplyListTest/http-request.adoc[]
 
 ==== Http Response
 
-include::{snippets}/api/v1/diary/reply/list/http-response.adoc[]
+include::{snippets}/diary/getReplyListTest/http-response.adoc[]
 
 == Pet
 

@@ -70,8 +70,8 @@ class DiaryController(
                 .body(replyResponse)
     }
 
-    @PostMapping("/{diaryId}/reply/register")
-    fun registerReply(@PathVariable(value = "diaryId") diaryId: Long, @RequestBody replyRegisterRequest: ReplyRegisterRequest): ResponseEntity<*> {
+    @PostMapping("/{diaryId}/reply")
+    fun registerReply(@PathVariable diaryId: Long, @RequestBody replyRegisterRequest: ReplyRegisterRequest): ResponseEntity<*> {
         val member = Member(1L, 1L, "eclass") // dummy
 
         replyService.registerReply(diaryId, replyRegisterRequest, member)
@@ -80,16 +80,16 @@ class DiaryController(
                 .body(null)
     }
 
-    @PutMapping("/{diaryId}/reply/edit/{replyId}")
-    fun editReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long, @RequestBody replyEditRequest: ReplyEditRequest): ResponseEntity<*> {
+    @PutMapping("/{diaryId}/reply/{replyId}")
+    fun editReply(@PathVariable diaryId: Long, @PathVariable replyId: Long, @RequestBody replyEditRequest: ReplyEditRequest): ResponseEntity<*> {
         replyService.editReply(diaryId, replyId, replyEditRequest)
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(null)
     }
 
-    @DeleteMapping("/{diaryId}/reply/delete/{replyId}")
-    fun deleteReply(@PathVariable(value = "diaryId") diaryId: Long, @PathVariable(value = "replyId") replyId: Long): ResponseEntity<*> {
+    @DeleteMapping("/{diaryId}/reply/{replyId}")
+    fun deleteReply(@PathVariable diaryId: Long, @PathVariable replyId: Long): ResponseEntity<*> {
         replyService.deleteReply(diaryId, replyId)
         return ResponseEntity
                 .status(HttpStatus.OK)

@@ -120,7 +120,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                     MockMvcRestDocumentation.document(
-                        "api/v1/diary/reply/register",
+                        "diary/{methodName}",
                         HeaderDocumentation.responseHeaders(),
                         PayloadDocumentation.requestFields(
                             PayloadDocumentation.fieldWithPath("content")
@@ -144,7 +144,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                     MockMvcRestDocumentation.document(
-                        "api/v1/diary/reply/edit",
+                        "diary/{methodName}",
                         HeaderDocumentation.responseHeaders(),
                         PayloadDocumentation.requestFields(
                             PayloadDocumentation.fieldWithPath("content")
@@ -163,7 +163,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                     MockMvcRestDocumentation.document(
-                        "api/v1/diary/reply/delete",
+                        "diary/{methodName}",
                         HeaderDocumentation.responseHeaders(),
                         HeaderDocumentation.responseHeaders()
                     )
@@ -180,7 +180,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                     MockMvcRestDocumentation.document(
-                        "api/v1/diary/reply/list",
+                        "diary/{methodName}",
                         HeaderDocumentation.requestHeaders(),
                         HeaderDocumentation.responseHeaders(),
                         PayloadDocumentation.responseFields(

@@ -1,6 +1,7 @@
 package com.mashup.eclassserver.model.entity
 
 import com.mashup.eclassserver.model.dto.DiaryDto
+import com.mashup.eclassserver.model.dto.DiaryRequestDto
 import javax.persistence.*
 
 @Entity
@@ -32,6 +33,13 @@ data class Diary(
 ) : BaseEntity() {
     companion object {
         fun of(request: DiaryDto, member: Member) =
+                Diary(
+                    petId = member.petId,
+                    member = member,
+                    content = request.content
+                )
+
+        fun of(request: DiaryRequestDto, member: Member) =
                 Diary(
                     petId = member.petId,
                     member = member,

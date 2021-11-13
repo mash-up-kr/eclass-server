@@ -9,7 +9,6 @@ data class Reply(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val replyId: Long = 0,
 
-    @Column(name = "diary_id")
     val diaryId: Long = 0,
 
     @Lob

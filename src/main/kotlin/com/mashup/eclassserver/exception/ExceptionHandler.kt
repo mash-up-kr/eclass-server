@@ -1,11 +1,11 @@
 package com.mashup.eclassserver.exception
 
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
 import javax.servlet.http.HttpServletRequest
 
-@ControllerAdvice
+@RestControllerAdvice
 class ExceptionHandler {
     @ExceptionHandler(EclassException::class)
     fun eclassExceptionHandler(request: HttpServletRequest, e: EclassException): ResponseEntity<ErrorResponseDto> {

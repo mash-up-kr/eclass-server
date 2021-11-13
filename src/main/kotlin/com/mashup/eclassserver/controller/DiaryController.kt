@@ -1,6 +1,7 @@
 package com.mashup.eclassserver.controller
 
 import com.mashup.eclassserver.model.dto.DiaryDto
+import com.mashup.eclassserver.model.dto.DiaryResponseDto
 import com.mashup.eclassserver.model.dto.ReplyEditRequest
 import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
 import com.mashup.eclassserver.model.entity.Member
@@ -35,13 +36,14 @@ class DiaryController(
     }
 
     @GetMapping("/list")
-    fun getDiary(): ResponseEntity<*> {
+    fun getDiary(
+        @RequestParam(name = "year") year: Int,
+        @RequestParam(name = "month") month: Int
+    ): ResponseEntity<List<DiaryResponseDto>> {
         val member = memberRepository.findById(1).get()
-
-        val resultList = diaryService.getDiaryList(member)
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(resultList)
+                .body(diaryService.getDiaryListByDate(member, year, month))
     }
 
     @GetMapping
@@ -55,7 +57,7 @@ class DiaryController(
     }
 
     @GetMapping("/{diaryId}")
-    fun getDiaryById(@PathVariable diaryId: Long): ResponseEntity<*> {
+    fun getDiaryById(@PathVariable diaryId: Long): ResponseEntity<DiaryResponseDto> {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(diaryService.findDiaryById(diaryId))

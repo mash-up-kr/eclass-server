@@ -155,3 +155,34 @@ include::{snippets}/api/v1/diary/reply/list/http-request.adoc[]
 ==== Http Response
 
 include::{snippets}/api/v1/diary/reply/list/http-response.adoc[]
+
+== Pet
+
+=== 펫 저장 API
+
+==== Curl Command
+
+include::{snippets}/pet/savePetTest/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/pet/savePetTest/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/pet/savePetTest/http-response.adoc[]
+
+=== 펫 조회 API
+
+==== Curl Command
+
+include::{snippets}/api/v1/pet/get/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/pet/get/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/api/v1/pet/get/http-response.adoc[]
+

@@ -1,5 +1,6 @@
 package com.mashup.eclassserver.model.entity
 
+import com.mashup.eclassserver.model.dto.PetEditDto
 import com.mashup.eclassserver.model.dto.PetPostDto
 import java.time.LocalDateTime
 import javax.persistence.Entity
@@ -22,6 +23,14 @@ data class Pet(
     companion object {
         fun of(request: PetPostDto) =
                 Pet(
+                    name = request.name,
+                    imageUrl = null,
+                    birthDate = request.birthDate
+                )
+
+        fun of(request: PetEditDto, id: Long) =
+                Pet(
+                    petId = id,
                     name = request.name,
                     imageUrl = null,
                     birthDate = request.birthDate

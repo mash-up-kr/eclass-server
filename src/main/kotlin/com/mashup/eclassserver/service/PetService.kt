@@ -32,8 +32,9 @@ class PetService(
 
     @Transactional
     fun editPet(pet: Pet, editDto: PetEditDto, imageFile: MultipartFile?): Pet {
-        editDto.birthDate?.let { pet.birthDate = editDto.birthDate }
-        editDto.name?.let { pet.name = editDto.name }
+        val updatePet = Pet.of(editDto, pet.petId)
+        updatePet.imageUrl = pet.imageUrl
+        petRepository.delete(pet)
         imageFile?.let {
             val imageUrl = s3Supporter.transmit(imageFile, S3Supporter.PETS)
             pet.imageUrl = imageUrl.url

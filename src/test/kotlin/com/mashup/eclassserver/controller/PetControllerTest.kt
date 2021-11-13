@@ -101,10 +101,14 @@ internal class PetControllerTest : AbstractTestRestDocs() {
             name = "editName",
             birthDate = LocalDateTime.now()
         )
+        val testMember = Member(1, 1, "testNick")
+        val testPet = Pet(1, "testPet", LocalDateTime.now(), "http://testPetUrl.com")
+        `when`(memberRepository.findById(1)).thenReturn(Optional.of(testMember))
+        `when`(petService.findPet(1)).thenReturn(testPet)
         val postProcess = RequestPostProcessor { it.method = "PUT"; it }
         val petData = MockMultipartFile("petEditDto", "", MediaType.APPLICATION_JSON_VALUE, DEFAULT_OBJECT_MAPPER.writeValueAsString(petEditDto).toByteArray())
         mockMvc.perform(
-            MockMvcRequestBuilders.multipart(PET_BASE_URL + "/1")
+            MockMvcRequestBuilders.multipart(PET_BASE_URL)
                     .file(imageFile)
                     .file(petData)
                     .with(postProcess)
@@ -120,8 +124,8 @@ internal class PetControllerTest : AbstractTestRestDocs() {
                         ),
                         PayloadDocumentation.requestPartFields(
                             "petEditDto",
-                            PayloadDocumentation.fieldWithPath("name").description("펫 이름"),
-                            PayloadDocumentation.fieldWithPath("birthDate").description("생일 ex)2020-01-01"),
+                            PayloadDocumentation.fieldWithPath("name").description("펫 이름[기존거라도 필수]"),
+                            PayloadDocumentation.fieldWithPath("birthDate").description("생일 ex)2020-01-01[기존거라도 필수]"),
                         )
                     )
                 )

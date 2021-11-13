@@ -36,13 +36,14 @@ class PetController(
                 .status(HttpStatus.OK).body(PetResponseDto.of(pet))
     }
 
-    @PutMapping("/{petId}")
+    @PutMapping()
     fun editPet(
-        @PathVariable(value = "petId") petId: Long,
         @RequestPart petEditDto: PetEditDto,
         @RequestParam imageFile: MultipartFile?
     ): ResponseEntity<Unit> {
-        val pet = petService.findPet(petId)
+        val member = memberRepository.findById(1).get()
+
+        val pet = petService.findPet(member.petId)
         petService.editPet(pet, petEditDto, imageFile)
         return ResponseEntity
                 .status(HttpStatus.OK).build()

@@ -27,7 +27,7 @@ class CoverService(
 ) {
 
     fun homeByMonth(petId: Long, targetDate: String): CoverResponseDto {
-        val cover = coverRepository.findByPetIdAndTargetDate(petId, targetDate)
+        val cover = coverRepository.findByPetIdAndTargetDate(petId, targetDate) ?: throw EclassException(ErrorCode.COVER_NOT_FOUND, "cover not found -> petId: $petId, targetDate: $targetDate")
         val attachedStickerList = attachedStickerRepository.findAttachedStickerWithStickerByAttachedIdAndAttachedType(cover.coverId, AttachedType.COVER)
 
         return CoverResponseDto(cover.imageUrl, attachedStickerList)

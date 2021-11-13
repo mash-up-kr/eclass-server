@@ -334,7 +334,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
             ),
             createdAt = LocalDateTime.now()
         )
-        val testMember = Member(1, 1, "testNick")
+        val testMember = Member(1, 1, "testNick", "test@naver.com", "passwd")
 
         `when`(memberRepository.findById(1)).thenReturn(Optional.of(testMember))
         given(diaryService.getDiaryListByDate(testMember, 2021, 4)).willReturn(listOf(diaryDto, diaryDto2))

@@ -70,7 +70,7 @@ internal class PetControllerTest : AbstractTestRestDocs() {
 
     @Test
     fun getPetTest() {
-        val testMember = Member(1, 1, "testNick")
+        val testMember = Member(1, 1, "testNick", "test@naver.com", "passwd")
         val testPet = Pet(1, "testPet", LocalDateTime.now(), "http://testPetUrl.com")
         `when`(memberRepository.findById(1)).thenReturn(Optional.of(testMember))
         `when`(petService.findPet(1)).thenReturn(testPet)
@@ -101,7 +101,7 @@ internal class PetControllerTest : AbstractTestRestDocs() {
             name = "editName",
             birthDate = LocalDateTime.now()
         )
-        val testMember = Member(1, 1, "testNick")
+        val testMember = Member(1, 1, "testNick", "test@naver.com", "passwd")
         val testPet = Pet(1, "testPet", LocalDateTime.now(), "http://testPetUrl.com")
         `when`(memberRepository.findById(1)).thenReturn(Optional.of(testMember))
         `when`(petService.findPet(1)).thenReturn(testPet)

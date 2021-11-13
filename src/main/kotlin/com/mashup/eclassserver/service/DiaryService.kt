@@ -68,8 +68,8 @@ class DiaryService(
 
     @Transactional(readOnly = true)
     fun getDiaryListByDate(member: Member, year: Int, month: Int): List<DiaryResponseDto> {
-        val startDate = LocalDate.of(year, month, 1).minusDays(1)
-        val endDate = LocalDate.of(year, month, 1).plusMonths(1)
+        val startDate = LocalDate.of(year, month, 1).minusDays(1).atTime(0, 0)
+        val endDate = LocalDate.of(year, month, 1).plusMonths(1).atTime(0, 0)
         val resultList = diaryRepository.findAllByCreatedAtBetweenAndMember(startDate, endDate, member)
                 .map { DiaryResponseDto.of(it) }
         for (diaryDto in resultList) {

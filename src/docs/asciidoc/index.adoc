@@ -141,16 +141,16 @@ include::{snippets}/api/v1/diary/reply/list/http-response.adoc[]
 
 ==== Curl Command
 
-include::{snippets}/api/v1/member/signUp/curl-request.adoc[]
+include::{snippets}/member/signUpTest/curl-request.adoc[]
 
 ==== Http Request
 
-include::{snippets}/api/v1/member/signUp/http-request.adoc[]
+include::{snippets}/member/signUpTest/http-request.adoc[]
 
 ==== Request Parts
 
-include::{snippets}/api/v1/member/signUp/request-parts.adoc[]
+include::{snippets}/member/signUpTest/request-parts.adoc[]
 
 ==== signUpRequestDto
 
-include::{snippets}/api/v1/member/signUp/request-part-signUpRequestDto-fields.adoc[]
+include::{snippets}/member/signUpTest/request-part-signUpRequestDto-fields.adoc[]

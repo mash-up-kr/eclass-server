@@ -39,7 +39,7 @@ class MemberControllerTest : AbstractTestRestDocs() {
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                         MockMvcRestDocumentation.document(
-                                "api/v1/member/signUp",
+                                "member/{methodName}",
                                 RequestDocumentation.requestParts(
                                         RequestDocumentation.partWithName("imageFile").description("멤버 프로필 이미지"),
                                         RequestDocumentation.partWithName("signUpRequestDto").description("회원가입 요청 데이터")

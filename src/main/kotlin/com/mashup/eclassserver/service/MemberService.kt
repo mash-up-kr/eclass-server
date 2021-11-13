@@ -20,7 +20,7 @@ class MemberService(
 
     @Transactional
     fun signUp(signUpRequest: SignUpRequestDto, imageFile: MultipartFile?): Member {
-        validateSignUpData(signUpRequest.email, signUpRequest.password)
+        validateSignUpData(signUpRequest.email)
         val member = Member(
                 email = signUpRequest.email,
                 password = passwordEncoder.encode(signUpRequest.password),
@@ -33,11 +33,7 @@ class MemberService(
         return memberRepository.save(member)
     }
 
-    fun validateSignUpData(email: String, password: String) {
-        if ("" == email || "" == password) {
-            throw EclassException(ErrorCode.EMPTY_EMAIL_OR_PASSWORD)
-        }
-
+    fun validateSignUpData(email: String) {
         if (memberRepository.existsByEmail(email)) {
             throw EclassException(ErrorCode.DUPLICATE_EMAIL)
         }

@@ -40,6 +40,8 @@ dependencies {
     asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
     implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.1.RELEASE")
 }
 

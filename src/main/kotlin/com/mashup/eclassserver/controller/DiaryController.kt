@@ -74,7 +74,7 @@ class DiaryController(
 
     @PostMapping("/{diaryId}/reply")
     fun registerReply(@PathVariable diaryId: Long, @RequestBody replyRegisterRequest: ReplyRegisterRequest): ResponseEntity<*> {
-        val member = Member(1L, 1L, "eclass") // dummy
+        val member = Member(1L, 1L, "eclass", "test@test.com", "1234") // dummy
 
         replyService.registerReply(diaryId, replyRegisterRequest, member)
         return ResponseEntity

@@ -61,8 +61,8 @@ class DiaryController(
                 .body(diaryService.findDiaryById(diaryId))
     }
 
-    @GetMapping("/{diaryId}/reply/list")
-    fun getDiaryReplyList(@PathVariable(value = "diaryId") diaryId: Long): ResponseEntity<*> {
+    @GetMapping("/{diaryId}/reply")
+    fun getDiaryReplyList(@PathVariable diaryId: Long): ResponseEntity<*> {
         val replyResponse = replyService.getReplyList(diaryId)
 
         return ResponseEntity

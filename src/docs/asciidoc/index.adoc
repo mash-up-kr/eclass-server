@@ -63,6 +63,20 @@ include::{snippets}/api/v1/diary/post/curl-request.adoc[]
 
 include::{snippets}/api/v1/diary/post/http-request.adoc[]
 
+=== 다이어리 리스트
+
+==== Curl Command
+
+include::{snippets}/api/v1/diary/list/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/api/v1/diary/list/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/api/v1/diary/list/http-response.adoc[]
+
 === 다이어리 ID 리스트 API
 
 ==== Curl Command

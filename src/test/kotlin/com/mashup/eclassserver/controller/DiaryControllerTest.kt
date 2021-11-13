@@ -111,7 +111,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
         val replyRequest = ReplyRegisterRequest("content")
 
         mockMvc.perform(
-            MockMvcRequestBuilders.post("$DIARY_BASE_URL/{diaryId}/reply/register", 1L)
+            MockMvcRequestBuilders.post("$DIARY_BASE_URL/{diaryId}/reply", 1L)
                     .content(DEFAULT_OBJECT_MAPPER.writeValueAsString(replyRequest))
                     .contentType(MediaType.APPLICATION_JSON)
         )
@@ -135,7 +135,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
         doNothing().`when`(replyService).editReply(1L, 1L, replyRequest)
 
         mockMvc.perform(
-            MockMvcRequestBuilders.put("$DIARY_BASE_URL/{diaryId}/reply/edit/{replyId}", 1L, 1L)
+            MockMvcRequestBuilders.put("$DIARY_BASE_URL/{diaryId}/reply/{replyId}", 1L, 1L)
                     .content(DEFAULT_OBJECT_MAPPER.writeValueAsString(replyRequest))
                     .contentType(MediaType.APPLICATION_JSON)
         )
@@ -157,7 +157,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
     fun replyDeleteTest() {
         doNothing().`when`(replyService).deleteReply(1L, 1L)
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("$DIARY_BASE_URL/{diaryId}/reply/delete/{replyId}", 1L, 1L))
+        mockMvc.perform(MockMvcRequestBuilders.delete("$DIARY_BASE_URL/{diaryId}/reply/{replyId}", 1L, 1L))
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                     MockMvcRestDocumentation.document(

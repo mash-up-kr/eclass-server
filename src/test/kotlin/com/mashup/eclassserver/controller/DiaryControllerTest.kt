@@ -22,6 +22,7 @@ import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
 import org.springframework.restdocs.payload.PayloadDocumentation
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
+import java.time.LocalDateTime
 import java.util.*
 
 @WebMvcTest(DiaryController::class)
@@ -238,7 +239,8 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                 1,
                 "testName",
                 "http:testbadge.com"
-            )
+            ),
+            createdAt = LocalDateTime.now()
         )
         given(diaryService.findDiaryById(1)).willReturn(diaryDto)
 
@@ -254,6 +256,8 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                                     .description("다이어리 id"),
                             PayloadDocumentation.fieldWithPath("content")
                                     .description("내용"),
+                            PayloadDocumentation.fieldWithPath("createdAt")
+                                    .description("작성일"),
                             PayloadDocumentation.fieldWithPath("badgeResponseDto")
                                     .description("뱃지 정보"),
                             PayloadDocumentation.fieldWithPath("badgeResponseDto.badgeId")

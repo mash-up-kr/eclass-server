@@ -1,6 +1,6 @@
 package com.mashup.eclassserver.controller
 
-import com.mashup.eclassserver.model.dto.DiaryDto
+import com.mashup.eclassserver.model.dto.DiaryRequestDto
 import com.mashup.eclassserver.model.dto.DiaryResponseDto
 import com.mashup.eclassserver.model.dto.ReplyEditRequest
 import com.mashup.eclassserver.model.dto.ReplyRegisterRequest
@@ -22,7 +22,7 @@ class DiaryController(
     private val badgeService: BadgeService
 ) {
     @PostMapping
-    fun submitDiary(@RequestBody diaryDto: DiaryDto): ResponseEntity<*> {
+    fun submitDiary(@RequestBody diaryDto: DiaryRequestDto): ResponseEntity<Unit> {
         val member = memberRepository.findById(1).get()
 
         val diary = diaryService.submitDiary(diaryDto, member)
@@ -47,7 +47,7 @@ class DiaryController(
     }
 
     @GetMapping
-    fun getDiaryId(): ResponseEntity<*> {
+    fun getDiaryId(): ResponseEntity<List<Long>> {
         val member = memberRepository.findById(1).get()
 
         val resultList = diaryService.getDiaryIdList(member)

@@ -2,9 +2,9 @@ package com.mashup.eclassserver.service
 
 import com.mashup.eclassserver.exception.EclassException
 import com.mashup.eclassserver.exception.ErrorCode
-import com.mashup.eclassserver.model.dto.DiaryDto
+import com.mashup.eclassserver.model.dto.DiaryRequestDto
 import com.mashup.eclassserver.model.dto.DiaryResponseDto
-import com.mashup.eclassserver.model.dto.PictureSubmitRequest
+import com.mashup.eclassserver.model.dto.PictureRequestDto
 import com.mashup.eclassserver.model.entity.*
 import com.mashup.eclassserver.model.repository.AttachedStickerRepository
 import com.mashup.eclassserver.model.repository.DiaryPictureRepository
@@ -20,21 +20,21 @@ class DiaryService(
     private val attachedStickerRepository: AttachedStickerRepository
 ) {
     @Transactional
-    fun submitDiary(diaryDto: DiaryDto, member: Member): Diary {
+    fun submitDiary(diaryDto: DiaryRequestDto, member: Member): Diary {
         return saveDiaryWithPictureList(diaryDto, member)
     }
 
-    private fun saveDiaryWithPictureList(diaryDto: DiaryDto, member: Member): Diary {
+    private fun saveDiaryWithPictureList(diaryDto: DiaryRequestDto, member: Member): Diary {
         val diary = Diary.of(diaryDto, member)
         diaryRepository.save(diary)
-        diaryDto.pictureSubmitRequestList.map { saveDiaryPictureAndStickers(diary, member, it) }
+        diaryDto.pictureList.map { saveDiaryPictureAndStickers(diary, member, it) }
         return diary
     }
 
-    private fun saveDiaryPictureAndStickers(diary: Diary, member: Member, pictureSubmitRequest: PictureSubmitRequest) {
-        val diaryPicture = DiaryPicture.of(pictureSubmitRequest, diary.diaryId)
+    private fun saveDiaryPictureAndStickers(diary: Diary, member: Member, pictureRequestDto: PictureRequestDto) {
+        val diaryPicture = DiaryPicture.of(pictureRequestDto, diary.diaryId)
         diaryPictureRepository.save(diaryPicture)
-        val attachedStickerList = pictureSubmitRequest.attachedStickerDtoList.asSequence()
+        val attachedStickerList = pictureRequestDto.attachedStickerDtoList.asSequence()
                 .map {
                     AttachedSticker.of(member.memberId, diaryPicture.diaryPictureId, AttachedType.DIARY, it)
                 }

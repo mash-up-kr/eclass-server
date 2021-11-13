@@ -50,8 +50,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
         val testRequest = DiaryDto(
             "test",
             arrayListOf(
-                PictureSubmitRequest(
-                    1,
+                PictureRequestDto(
                     "testImgUrl.com",
                     false,
                     arrayListOf(
@@ -87,21 +86,19 @@ class DiaryControllerTest : AbstractTestRestDocs() {
                                     .description("내용"),
                             PayloadDocumentation.fieldWithPath("badgeId")
                                     .description("뱃지 id"),
-                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList")
+                            PayloadDocumentation.fieldWithPath("pictureList")
                                     .description("제출된 사진들"),
-                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].diaryPictureId")
-                                    .description("다이어리 id"),
-                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].imageUrl")
+                            PayloadDocumentation.fieldWithPath("pictureList[*].imageUrl")
                                     .description("사진 이미지"),
-                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].thumbnail")
+                            PayloadDocumentation.fieldWithPath("pictureList[*].thumbnail")
                                     .description("썸네일 여부(thumbnail아님!!! isThumbnail로 줘야함"),
-                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList")
+                            PayloadDocumentation.fieldWithPath("pictureList[*].attachedStickerDtoList")
                                     .description("스티커 정보"),
-                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerId")
+                            PayloadDocumentation.fieldWithPath("pictureList[*].attachedStickerDtoList[*].stickerId")
                                     .description("스티커 아이디"),
-                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerX")
+                            PayloadDocumentation.fieldWithPath("pictureList[*].attachedStickerDtoList[*].stickerX")
                                     .description("스티커 x 좌표 비율"),
-                            PayloadDocumentation.fieldWithPath("pictureSubmitRequestList[*].attachedStickerDtoList[*].stickerY")
+                            PayloadDocumentation.fieldWithPath("pictureList[*].attachedStickerDtoList[*].stickerY")
                                     .description("스티커 y 좌표 비율"),
                         )
                     )

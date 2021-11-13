@@ -70,7 +70,7 @@ class DiaryService(
     fun getDiaryListByDate(member: Member, year: Int, month: Int): List<DiaryResponseDto> {
         val startDate = LocalDate.of(year, month, 1).minusDays(1)
         val endDate = LocalDate.of(year, month, 1).plusMonths(1)
-        val resultList = diaryRepository.findAllCreatedAtBetweenAndMember(startDate, endDate, member)
+        val resultList = diaryRepository.findAllByCreatedAtBetweenAndMember(startDate, endDate, member)
                 .map { DiaryResponseDto.of(it) }
         for (diaryDto in resultList) {
             for (picDto in diaryDto.pictureSubmitRequestList) {

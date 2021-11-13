@@ -10,6 +10,7 @@ enum class ErrorCode(val httpStatus: Int, val description: String) {
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Member Not Found"),
     COVER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Cover Not Found"),
     BADGE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Badge Not Found"),
+    PET_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Pet Not Found"),
     DIARY_PICTURE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Diary Picture Not Found"),
 
     // Common
@@ -19,5 +20,10 @@ enum class ErrorCode(val httpStatus: Int, val description: String) {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Server Error"),
     INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST.value(), " Invalid Type Value"),
     HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN.value(), "Access is Denied"),
-    ETC_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "내부 서버 오류입니다.")
+    ETC_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "내부 서버 오류입니다."),
+
+    // login
+    EMPTY_EMAIL_OR_PASSWORD(HttpStatus.BAD_REQUEST.value(), "Empty email or password"),
+    DUPLICATE_EMAIL(HttpStatus.BAD_REQUEST.value(), "Duplicate email")
+
 }

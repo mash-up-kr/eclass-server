@@ -8,5 +8,5 @@ import java.time.LocalDate
 interface DiaryRepository : JpaRepository<Diary, Long> {
     fun findBydiaryId(diaryId: Long): Diary?
     fun findAllByMember(member: Member): List<Diary>
-    fun findAllCreatedAtBetweenAndMember(start: LocalDate, end: LocalDate, member: Member): List<Diary>
+    fun findAllByCreatedAtBetweenAndMember(start: LocalDate, end: LocalDate, member: Member): List<Diary>
 }

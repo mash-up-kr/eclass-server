@@ -46,8 +46,8 @@ class DiaryControllerTest : AbstractTestRestDocs() {
 
     @Test
     fun diarySubmitTest() {
-        val testMember = Member(1, 1, "testNick")
-        val testRequest = DiaryRequestDto(
+        val testMember = Member(1, 1, "testNick", "test.com", "1234")
+        val testRequest = DiaryDto(
             "test",
             arrayListOf(
                 PictureRequestDto(
@@ -107,7 +107,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
 
     @Test
     fun replyRegisterTest() {
-        val member = Member(1, 1, "test")
+        val member = Member(1, 1, "test", "test.com", "1234")
         val replyRequest = ReplyRegisterRequest("content")
 
         mockMvc.perform(
@@ -170,7 +170,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
 
     @Test
     fun getReplyListTest() {
-        val member = Member(1, 1, "test")
+        val member = Member(1, 1, "test", "test.com", "1234")
         val replyList = ReplyResponse(listOf(ReplyResponseDto("testMember", "content")))
         given(replyService.getReplyList(1L)).willReturn(replyList)
 
@@ -195,7 +195,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
 
     @Test
     fun getDiaryIdListTest() {
-        val member = Member(1, 1, "test")
+        val member = Member(1, 1, "test", "test.com", "1234")
         `when`(memberRepository.findById(1)).thenReturn(Optional.of(member))
         val diaryIdList = listOf(1L, 2L, 3L)
         given(diaryService.getDiaryIdList(member)).willReturn(diaryIdList)

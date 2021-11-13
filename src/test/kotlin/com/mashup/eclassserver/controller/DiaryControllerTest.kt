@@ -174,7 +174,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
         val replyList = ReplyResponse(listOf(ReplyResponseDto("testMember", "content")))
         given(replyService.getReplyList(1L)).willReturn(replyList)
 
-        mockMvc.perform(MockMvcRequestBuilders.get("$DIARY_BASE_URL/{diaryId}/reply/list", 1L))
+        mockMvc.perform(MockMvcRequestBuilders.get("$DIARY_BASE_URL/{diaryId}/reply", 1L))
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                     MockMvcRestDocumentation.document(

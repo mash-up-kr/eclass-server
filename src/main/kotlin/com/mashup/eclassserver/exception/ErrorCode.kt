@@ -10,6 +10,7 @@ enum class ErrorCode(val httpStatus: Int, val description: String) {
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Member Not Found"),
     COVER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Cover Not Found"),
     BADGE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Badge Not Found"),
+    PET_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Pet Not Found"),
     DIARY_PICTURE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Diary Picture Not Found"),
 
     // Common

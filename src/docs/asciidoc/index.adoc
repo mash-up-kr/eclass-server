@@ -170,6 +170,26 @@ include::{snippets}/api/v1/diary/reply/list/http-request.adoc[]
 
 include::{snippets}/api/v1/diary/reply/list/http-response.adoc[]
 
+== Member
+
+=== 회원가입
+
+==== Curl Command
+
+include::{snippets}/member/signUpTest/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/member/signUpTest/http-request.adoc[]
+
+==== Request Parts
+
+include::{snippets}/member/signUpTest/request-parts.adoc[]
+
+==== signUpRequestDto
+
+include::{snippets}/member/signUpTest/request-part-signUpRequestDto-fields.adoc[]
+
 == Pet
 
 === 펫 저장 API

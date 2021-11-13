@@ -3,23 +3,27 @@ package com.mashup.eclassserver.controller
 import com.mashup.eclassserver.constants.DEFAULT_OBJECT_MAPPER
 import com.mashup.eclassserver.infra.ECLogger
 import com.mashup.eclassserver.model.dto.AttachedStickerDto
+import com.mashup.eclassserver.model.dto.CoverAttachedSticker
 import com.mashup.eclassserver.model.dto.CoverData
+import com.mashup.eclassserver.model.dto.CoverResponseDto
 import com.mashup.eclassserver.model.entity.ShapeType
 import com.mashup.eclassserver.service.CoverService
+import com.nhaarman.mockitokotlin2.given
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.mock.web.MockMultipartFile
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
-import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
-import org.springframework.restdocs.payload.PayloadDocumentation.requestPartFields
-import org.springframework.restdocs.request.RequestDocumentation.partWithName
-import org.springframework.restdocs.request.RequestDocumentation.requestParts
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.payload.JsonFieldType
+import org.springframework.restdocs.payload.PayloadDocumentation.*
+import org.springframework.restdocs.request.RequestDocumentation.*
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import java.time.LocalDate
+import kotlin.math.roundToInt
+import kotlin.random.Random
 
 @WebMvcTest(CoverController::class)
 internal class CoverControllerTest : AbstractTestRestDocs() {
@@ -32,6 +36,49 @@ internal class CoverControllerTest : AbstractTestRestDocs() {
     }
 
     @Test
+    fun home() {
+        // given
+        given(coverService.homeByMonth(1, "2111")).willReturn(
+            CoverResponseDto(
+                "test-cover-image-url",
+                mutableListOf<CoverAttachedSticker>().apply {
+                    repeat(3) {
+                        this.add(
+                            CoverAttachedSticker(
+                                "test-sticker-image-url-$it",
+                                stickerX = Random.nextDouble(5.0 * 100).roundToInt() / 100.0,
+                                stickerY = Random.nextDouble(5.0 * 100).roundToInt() / 100.0
+                            )
+                        )
+                    }
+                }
+            )
+        )
+
+        // when & then
+        mockMvc.perform(
+            RestDocumentationRequestBuilders.get("$COVER_BASE_URL/{targetDate}", "2111")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andDo(
+                MockMvcRestDocumentation.document(
+                    "cover/{methodName}",
+                    pathParameters(
+                        parameterWithName("targetDate").description("커버 날짜 데이터(yyMM)")
+                    ),
+                    responseFields(
+                        fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("커버 image url"),
+                        fieldWithPath("attachedStickerList[]").type(JsonFieldType.ARRAY).description("스티커 정보 리스트,"),
+                        fieldWithPath("attachedStickerList[].imageUrl").type(JsonFieldType.STRING).description("스티커 image url"),
+                        fieldWithPath("attachedStickerList[].stickerX").type(JsonFieldType.NUMBER).description("스티커 x 좌표"),
+                        fieldWithPath("attachedStickerList[].stickerY").type(JsonFieldType.NUMBER).description("스티커 y 좌표")
+                    )
+                )
+            )
+    }
+
+    @Test
     fun register() {
         val imageFile = MockMultipartFile("imageFile", ByteArray(30))
         val coverDataDto = CoverData(
@@ -40,7 +87,7 @@ internal class CoverControllerTest : AbstractTestRestDocs() {
             shapeType = ShapeType.CIRCLE,
             shapeX = 5.5,
             shapeY = 5.5,
-            targetDate = LocalDate.now()
+            targetDate = "2111"
         )
         log.debug("coverData -> ${DEFAULT_OBJECT_MAPPER.writeValueAsString(coverDataDto)}")
         val coverData = MockMultipartFile("coverData", "", MediaType.APPLICATION_JSON_VALUE, DEFAULT_OBJECT_MAPPER.writeValueAsString(coverDataDto).toByteArray())

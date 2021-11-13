@@ -441,7 +441,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
+<ul class="sectlevel2">
+<li><a href="#_헤더_정보">헤더 정보</a></li>
 <li><a href="#_cover">Cover</a>
 <ul class="sectlevel2">
 <li><a href="#_cover_등록저장">Cover 등록(저장)</a>
@@ -538,22 +539,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_signuprequestdto">signUpRequestDto</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#_pet">Pet</a>
-<ul class="sectlevel2">
-<li><a href="#_펫_저장_api">펫 저장 API</a>
+<li><a href="#_로그인">로그인</a>
 <ul class="sectlevel3">
 <li><a href="#_curl_command_13">Curl Command</a></li>
 <li><a href="#_http_request_13">Http Request</a></li>
 <li><a href="#_http_response_8">Http Response</a></li>
 </ul>
 </li>
-<li><a href="#_펫_조회_api">펫 조회 API</a>
+</ul>
+</li>
+<li><a href="#_pet">Pet</a>
+<ul class="sectlevel2">
+<li><a href="#_펫_저장_api">펫 저장 API</a>
 <ul class="sectlevel3">
 <li><a href="#_curl_command_14">Curl Command</a></li>
 <li><a href="#_http_request_14">Http Request</a></li>
 <li><a href="#_http_response_9">Http Response</a></li>
+</ul>
+</li>
+<li><a href="#_펫_조회_api">펫 조회 API</a>
+<ul class="sectlevel3">
+<li><a href="#_curl_command_15">Curl Command</a></li>
+<li><a href="#_http_request_15">Http Request</a></li>
+<li><a href="#_http_response_10">Http Response</a></li>
 </ul>
 </li>
 </ul>
@@ -562,6 +570,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div id="content">
+<div class="sect2">
+<h3 id="_헤더_정보"><a class="link" href="#_헤더_정보">헤더 정보</a></h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">header name</th>
+<th class="tableblock halign-left valign-top">header value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eclass-auth-token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">인증토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="sect1">
 <h2 id="_cover"><a class="link" href="#_cover">Cover</a></h2>
 <div class="sectionbody">
@@ -750,22 +779,22 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 377
+Content-Length: 360
 
 {
   "imageUrl" : "test-cover-image-url",
   "attachedStickerList" : [ {
     "imageUrl" : "test-sticker-image-url-0",
-    "stickerX" : 2.63,
-    "stickerY" : 1.56
+    "stickerX" : 4.61,
+    "stickerY" : 3.2
   }, {
     "imageUrl" : "test-sticker-image-url-1",
-    "stickerX" : 3.89,
-    "stickerY" : 1.87
+    "stickerX" : 4.55,
+    "stickerY" : 1.51
   }, {
     "imageUrl" : "test-sticker-image-url-2",
-    "stickerX" : 1.78,
-    "stickerY" : 2.18
+    "stickerX" : 2.7,
+    "stickerY" : 4.62
   } ]
 }</code></pre>
 </div>
@@ -847,7 +876,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 215
+Content-Length: 205
 
 {
   "badgeList" : [ {
@@ -937,7 +966,7 @@ Content-Length: 215
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /diary HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 257
+Content-Length: 245
 Host: eclass.jonghyeon.com
 
 {
@@ -985,7 +1014,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 935
+Content-Length: 894
 
 [ {
   "diaryId" : 1,
@@ -1005,7 +1034,7 @@ Content-Length: 935
     "name" : "testName",
     "imageUrl" : "http:testbadge.com"
   },
-  "createdAt" : "2021-11-13T23:46:36.2242451"
+  "createdAt" : "2021-11-14T03:07:18.645341"
 }, {
   "diaryId" : 4,
   "content" : "test4",
@@ -1024,7 +1053,7 @@ Content-Length: 935
     "name" : "testName",
     "imageUrl" : "http:testbadge.com"
   },
-  "createdAt" : "2021-11-13T23:46:36.2242451"
+  "createdAt" : "2021-11-14T03:07:18.64538"
 } ]</code></pre>
 </div>
 </div>
@@ -1093,7 +1122,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 464
+Content-Length: 444
 
 {
   "diaryId" : 1,
@@ -1113,7 +1142,7 @@ Content-Length: 464
     "name" : "testName",
     "imageUrl" : "http:testbadge.com"
   },
-  "createdAt" : "2021-11-13T23:46:36.7288092"
+  "createdAt" : "2021-11-14T03:07:18.900801"
 }</code></pre>
 </div>
 </div>
@@ -1125,7 +1154,7 @@ Content-Length: 464
 <h4 id="_curl_command_8"><a class="link" href="#_curl_command_8">Curl Command</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply/register' -i -X POST \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -d '{
   "content" : "content"
@@ -1137,9 +1166,9 @@ Content-Length: 464
 <h4 id="_http_request_8"><a class="link" href="#_http_request_8">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/diary/1/reply/register HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/diary/1/reply HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 29
+Content-Length: 27
 Host: eclass.jonghyeon.com
 
 {
@@ -1155,7 +1184,7 @@ Host: eclass.jonghyeon.com
 <h4 id="_curl_command_9"><a class="link" href="#_curl_command_9">Curl Command</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply/edit/1' -i -X PUT \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply/1' -i -X PUT \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -d '{
   "content" : "edit content"
@@ -1167,9 +1196,9 @@ Host: eclass.jonghyeon.com
 <h4 id="_http_request_9"><a class="link" href="#_http_request_9">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/diary/1/reply/edit/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/diary/1/reply/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 34
+Content-Length: 32
 Host: eclass.jonghyeon.com
 
 {
@@ -1185,7 +1214,7 @@ Host: eclass.jonghyeon.com
 <h4 id="_curl_command_10"><a class="link" href="#_curl_command_10">Curl Command</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply/delete/1' -i -X DELETE</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/diary/1/reply/1' -i -X DELETE</code></pre>
 </div>
 </div>
 </div>
@@ -1193,7 +1222,7 @@ Host: eclass.jonghyeon.com
 <h4 id="_http_request_10"><a class="link" href="#_http_request_10">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/v1/diary/1/reply/delete/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">DELETE /api/v1/diary/1/reply/1 HTTP/1.1
 Host: eclass.jonghyeon.com</code></pre>
 </div>
 </div>
@@ -1227,7 +1256,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 93
+Content-Length: 88
 
 {
   "replyList" : [ {
@@ -1338,6 +1367,55 @@ Content-Type: application/json
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_로그인"><a class="link" href="#_로그인">로그인</a></h3>
+<div class="sect3">
+<h4 id="_curl_command_13"><a class="link" href="#_curl_command_13">Curl Command</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/member/login' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -d '{
+  "email" : "whdgus8219@naver.com",
+  "password" : "samplePassword"
+}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_http_request_13"><a class="link" href="#_http_request_13">Http Request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/member/login HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 71
+Host: eclass.jonghyeon.com
+
+{
+  "email" : "whdgus8219@naver.com",
+  "password" : "samplePassword"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_http_response_8"><a class="link" href="#_http_response_8">Http Response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 177
+
+{
+  "token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MzU2LCJwZXRJZCI6OTU5LCJzdWIiOiJ1c2VyIiwiZXhwIjoxNjM5NDE4ODM3fQ.eLr-cAhq1_rg9ExaSj9cfci2TmzlogRq6_tRyzoQMao"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1346,18 +1424,18 @@ Content-Type: application/json
 <div class="sect2">
 <h3 id="_펫_저장_api"><a class="link" href="#_펫_저장_api">펫 저장 API</a></h3>
 <div class="sect3">
-<h4 id="_curl_command_13"><a class="link" href="#_curl_command_13">Curl Command</a></h4>
+<h4 id="_curl_command_14"><a class="link" href="#_curl_command_14">Curl Command</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/pet' -i -X POST \
     -H 'Content-Type: multipart/form-data;charset=UTF-8' \
     -F 'imageFile=                              ' \
-    -F 'petPostDto={"name":"testName","birthDate":[2021,11,13,23,46,41,398121000]};type=application/json'</code></pre>
+    -F 'petPostDto={"name":"testName","birthDate":[2021,11,14,3,7,21,55331000]};type=application/json'</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_request_13"><a class="link" href="#_http_request_13">Http Request</a></h4>
+<h4 id="_http_request_14"><a class="link" href="#_http_request_14">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/pet HTTP/1.1
@@ -1372,13 +1450,13 @@ Content-Disposition: form-data; name=imageFile
 Content-Disposition: form-data; name=petPostDto
 Content-Type: application/json
 
-{"name":"testName","birthDate":[2021,11,13,23,46,41,398121000]}
+{"name":"testName","birthDate":[2021,11,14,3,7,21,55331000]}
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_response_8"><a class="link" href="#_http_response_8">Http Response</a></h4>
+<h4 id="_http_response_9"><a class="link" href="#_http_response_9">Http Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1392,7 +1470,7 @@ Vary: Access-Control-Request-Headers</code></pre>
 <div class="sect2">
 <h3 id="_펫_조회_api"><a class="link" href="#_펫_조회_api">펫 조회 API</a></h3>
 <div class="sect3">
-<h4 id="_curl_command_14"><a class="link" href="#_curl_command_14">Curl Command</a></h4>
+<h4 id="_curl_command_15"><a class="link" href="#_curl_command_15">Curl Command</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/pet' -i -X GET</code></pre>
@@ -1400,7 +1478,7 @@ Vary: Access-Control-Request-Headers</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_request_14"><a class="link" href="#_http_request_14">Http Request</a></h4>
+<h4 id="_http_request_15"><a class="link" href="#_http_request_15">Http Request</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/pet HTTP/1.1
@@ -1409,7 +1487,7 @@ Host: eclass.jonghyeon.com</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_http_response_9"><a class="link" href="#_http_response_9">Http Response</a></h4>
+<h4 id="_http_response_10"><a class="link" href="#_http_response_10">Http Response</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1417,12 +1495,12 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 114
+Content-Length: 109
 
 {
   "petId" : 1,
   "name" : "testPet",
-  "birthDate" : "2021-11-13",
+  "birthDate" : "2021-11-14",
   "imageUrl" : "http://testPetUrl.com"
 }</code></pre>
 </div>
@@ -1435,7 +1513,7 @@ Content-Length: 114
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2021-11-13 23:06:00 +0900
+Last updated 2021-11-14 03:03:49 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">

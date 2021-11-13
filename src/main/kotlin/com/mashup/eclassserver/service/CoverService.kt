@@ -34,8 +34,7 @@ class CoverService(
     }
 
     @Transactional
-    fun register(memberId: Long, petId: Long?, coverData: CoverData, imageFile: MultipartFile) {
-        petId ?: throw EclassException(ErrorCode.PET_NOT_FOUND)
+    fun register(memberId: Long, petId: Long, coverData: CoverData, imageFile: MultipartFile) {
 
         validateStickerId(coverData.attachedStickerList)
 

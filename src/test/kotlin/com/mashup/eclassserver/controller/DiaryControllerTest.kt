@@ -47,7 +47,7 @@ class DiaryControllerTest : AbstractTestRestDocs() {
     @Test
     fun diarySubmitTest() {
         val testMember = Member(1, 1, "testNick", "test.com", "1234")
-        val testRequest = DiaryDto(
+        val testRequest = DiaryRequestDto(
             "test",
             arrayListOf(
                 PictureRequestDto(

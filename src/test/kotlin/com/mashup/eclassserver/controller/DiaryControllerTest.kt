@@ -337,9 +337,13 @@ class DiaryControllerTest : AbstractTestRestDocs() {
         val testMember = Member(1, 1, "testNick")
 
         `when`(memberRepository.findById(1)).thenReturn(Optional.of(testMember))
-        given(diaryService.getDiaryList(testMember)).willReturn(listOf(diaryDto, diaryDto2))
+        given(diaryService.getDiaryListByDate(testMember, 2021, 4)).willReturn(listOf(diaryDto, diaryDto2))
 
-        mockMvc.perform(MockMvcRequestBuilders.get("$DIARY_BASE_URL/list"))
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("$DIARY_BASE_URL/list")
+                    .param("year", "2021")
+                    .param("month", "4")
+        )
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
                     MockMvcRestDocumentation.document(

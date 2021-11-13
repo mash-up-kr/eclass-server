@@ -36,13 +36,14 @@ class DiaryController(
     }
 
     @GetMapping("/list")
-    fun getDiary(): ResponseEntity<List<DiaryResponseDto>> {
+    fun getDiary(
+        @RequestParam(name = "year") year: Int,
+        @RequestParam(name = "month") month: Int
+    ): ResponseEntity<List<DiaryResponseDto>> {
         val member = memberRepository.findById(1).get()
-
-        val resultList = diaryService.getDiaryList(member)
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(resultList)
+                .body(diaryService.getDiaryListByDate(member, year, month))
     }
 
     @GetMapping

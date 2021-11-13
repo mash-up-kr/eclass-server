@@ -1,5 +1,6 @@
 package com.mashup.eclassserver.model.entity
 
+import com.mashup.eclassserver.model.dto.ScheduleRequestDto
 import javax.persistence.*
 
 @Entity
@@ -8,13 +9,24 @@ data class Repeat(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val repeatId: Long = 0,
 
+    val petId: Long = 0,
+
     @Enumerated(EnumType.STRING)
     val repeatType: RepeatType,
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.PERSIST])
     @JoinColumn(name = "schedule_id")
     val schedule: Schedule
-) : BaseEntity()
+) : BaseEntity() {
+    companion object {
+        fun of(scheduleRequestDto: ScheduleRequestDto, member: Member): Repeat =
+                Repeat(
+                    petId = member.petId,
+                    repeatType = scheduleRequestDto.repeatType!!,
+                    schedule = Schedule.of(scheduleRequestDto, member)
+                )
+    }
+}
 
 enum class RepeatType {
     DAILY,

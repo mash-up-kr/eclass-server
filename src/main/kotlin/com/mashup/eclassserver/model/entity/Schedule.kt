@@ -1,7 +1,11 @@
 package com.mashup.eclassserver.model.entity
 
+import com.mashup.eclassserver.model.dto.ScheduleRequestDto
 import java.time.LocalDateTime
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
 
 @Entity
 data class Schedule(
@@ -17,8 +21,16 @@ data class Schedule(
 
     val scheduledAt: LocalDateTime,
 
-    val memberId: Long,
-
-    @OneToOne(mappedBy = "schedule", fetch = FetchType.EAGER)
-    val repeat: Repeat
-)
+    val petId: Long
+) {
+    companion object {
+        fun of(scheduleRequestDto: ScheduleRequestDto, member: Member): Schedule =
+                Schedule(
+                    name = scheduleRequestDto.name,
+                    location = scheduleRequestDto.location,
+                    color = scheduleRequestDto.color,
+                    scheduledAt = scheduleRequestDto.scheduledAt,
+                    petId = member.petId
+                )
+    }
+}

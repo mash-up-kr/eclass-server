@@ -23,7 +23,10 @@ enum class ErrorCode(val httpStatus: Int, val description: String) {
     ETC_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "내부 서버 오류입니다."),
 
     // login
+    INVALID_LOGIN_INFO(HttpStatus.FORBIDDEN.value(), "로그인정보가 올바르지 않습니다."),
+    NOT_EXIST_AUTH_TOKEN(HttpStatus.FORBIDDEN.value(), "로그인 상태가 아닙니다."),
     EMPTY_EMAIL_OR_PASSWORD(HttpStatus.BAD_REQUEST.value(), "Empty email or password"),
+    EXPIRED_TOKEN(HttpStatus.FORBIDDEN.value(), "token is expired"),
     DUPLICATE_EMAIL(HttpStatus.BAD_REQUEST.value(), "Duplicate email")
 
 }

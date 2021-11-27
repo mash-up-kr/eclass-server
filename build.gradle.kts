@@ -31,6 +31,8 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:4.4.0")
     kapt("com.querydsl:querydsl-apt:4.4.0:jpa")
 
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")

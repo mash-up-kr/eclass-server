@@ -241,3 +241,10 @@ include::{snippets}/api/v1/pet/get/http-request.adoc[]
 
 include::{snippets}/api/v1/pet/get/http-response.adoc[]
 
+== File
+
+=== File 등록(저장)
+
+==== Curl Command
+
+include::{snippets}/file/image/registerImageTest/curl-request.adoc[]

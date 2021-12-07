@@ -8,6 +8,13 @@ eclass-api
 :sectlinks:
 :hardbreaks:
 
+=== 헤더 정보
+|===
+| header name | header value
+
+| eclass-auth-token | 인증토큰
+|===
+
 == Cover
 
 === Cover 등록(저장)
@@ -190,6 +197,20 @@ include::{snippets}/member/signUpTest/request-parts.adoc[]
 
 include::{snippets}/member/signUpTest/request-part-signUpRequestDto-fields.adoc[]
 
+=== 로그인
+
+==== Curl Command
+
+include::{snippets}/member/login/curl-request.adoc[]
+
+==== Http Request
+
+include::{snippets}/member/login/http-request.adoc[]
+
+==== Http Response
+
+include::{snippets}/member/login/http-response.adoc[]
+
 == Pet
 
 === 펫 저장 API
@@ -220,3 +241,10 @@ include::{snippets}/api/v1/pet/get/http-request.adoc[]
 
 include::{snippets}/api/v1/pet/get/http-response.adoc[]
 
+== File
+
+=== File 등록(저장)
+
+==== Curl Command
+
+include::{snippets}/file/image/registerImageTest/curl-request.adoc[]

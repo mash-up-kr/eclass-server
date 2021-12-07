@@ -1,5 +1,7 @@
 package com.mashup.eclassserver.controller
 
+import com.mashup.eclassserver.model.dto.LoginRequestDto
+import com.mashup.eclassserver.model.dto.LoginResponseDto
 import com.mashup.eclassserver.model.dto.SignUpRequestDto
 import com.mashup.eclassserver.model.dto.SignUpResponseDto
 import com.mashup.eclassserver.service.MemberService
@@ -18,7 +20,13 @@ class MemberController(
     fun signUp(@Valid @RequestPart signUpRequestDto: SignUpRequestDto, @RequestParam imageFile: MultipartFile?): ResponseEntity<SignUpResponseDto> {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(SignUpResponseDto.of(memberService.signUp(signUpRequestDto, imageFile)))
+                .body(memberService.signUp(signUpRequestDto, imageFile))
     }
 
+    @PostMapping("/login")
+    fun login(@RequestBody @Valid loginRequestDto: LoginRequestDto): ResponseEntity<LoginResponseDto> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(memberService.login(loginRequestDto))
+    }
 }

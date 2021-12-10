@@ -12,7 +12,8 @@ class FileService(
 ) {
     fun saveImages(imageFiles: List<MultipartFile>): List<ImageUrlResponseDto> {
         val imageUrlResponseDtoList = mutableListOf<ImageUrlResponseDto>()
-        GlobalScope.launch {
+
+        runBlocking {
             imageFiles.map { multipartFile ->
                 GlobalScope.async {
                     imageUrlResponseDtoList.add(ImageUrlResponseDto(s3Supporter.transmit(multipartFile, S3Supporter.DIARYPICTURES).url))

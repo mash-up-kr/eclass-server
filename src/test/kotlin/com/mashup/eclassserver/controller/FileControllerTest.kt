@@ -30,24 +30,26 @@ class FileControllerTest : AbstractTestRestDocs() {
     @Test
     fun registerImageTest() {
         val imageFiles = MockMultipartFile("imageFiles", ByteArray(30))
+        val imageFiles2 = MockMultipartFile("imageFiles", ByteArray(30))
         given(fileService.saveImages(any())).willReturn(listOf(ImageUrlResponseDto("https://eclass-bucket.s3.ap-northeast-2.amazonaws.com/diary-pictures/diaryImageFileName")))
 
         mockMvc.perform(
             MockMvcRequestBuilders.multipart("$COVER_BASE_URL/image")
-                    .file(imageFiles)
+                .file(imageFiles)
+                .file(imageFiles2)
         )
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk)
-                .andDo(
-                    MockMvcRestDocumentation.document(
-                        "file/image/{methodName}",
-                        RequestDocumentation.requestParts(
-                            RequestDocumentation.partWithName("imageFiles").description("다이어리 이미지"),
-                        ),
-                        PayloadDocumentation.responseFields(
-                            PayloadDocumentation.fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("이미지 url")
-                        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andDo(
+                MockMvcRestDocumentation.document(
+                    "file/image/{methodName}",
+                    RequestDocumentation.requestParts(
+                        RequestDocumentation.partWithName("imageFiles").description("다이어리 이미지"),
+                    ),
+                    PayloadDocumentation.responseFields(
+                        PayloadDocumentation.fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("이미지 url")
                     )
                 )
+            )
     }
 }

@@ -794,16 +794,16 @@ Content-Length: 362
   "imageUrl" : "test-cover-image-url",
   "attachedStickerList" : [ {
     "imageUrl" : "test-sticker-image-url-0",
-    "stickerX" : 4.67,
-    "stickerY" : 3.02
+    "stickerX" : 0.29,
+    "stickerY" : 2.71
   }, {
     "imageUrl" : "test-sticker-image-url-1",
-    "stickerX" : 1.56,
-    "stickerY" : 1.03
+    "stickerX" : 2.73,
+    "stickerY" : 2.38
   }, {
     "imageUrl" : "test-sticker-image-url-2",
-    "stickerX" : 0.59,
-    "stickerY" : 0.81
+    "stickerX" : 1.16,
+    "stickerY" : 4.16
   } ]
 }</code></pre>
 </div>
@@ -1023,7 +1023,7 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 895
+Content-Length: 894
 
 [ {
   "diaryId" : 1,
@@ -1043,7 +1043,7 @@ Content-Length: 895
     "name" : "testName",
     "imageUrl" : "http:testbadge.com"
   },
-  "createdAt" : "2021-12-10T22:09:31.969025"
+  "createdAt" : "2021-12-10T22:13:18.74944"
 }, {
   "diaryId" : 4,
   "content" : "test4",
@@ -1062,7 +1062,7 @@ Content-Length: 895
     "name" : "testName",
     "imageUrl" : "http:testbadge.com"
   },
-  "createdAt" : "2021-12-10T22:09:31.969071"
+  "createdAt" : "2021-12-10T22:13:18.749485"
 } ]</code></pre>
 </div>
 </div>
@@ -1151,7 +1151,7 @@ Content-Length: 444
     "name" : "testName",
     "imageUrl" : "http:testbadge.com"
   },
-  "createdAt" : "2021-12-10T22:09:32.207412"
+  "createdAt" : "2021-12-10T22:13:19.014648"
 }</code></pre>
 </div>
 </div>
@@ -1373,7 +1373,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 177
 
 {
-  "token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MzU2LCJwZXRJZCI6OTU5LCJzdWIiOiJ1c2VyIiwiZXhwIjoxNjQxODIwMTcwfQ.D34gsF2O0RgEUG5m6lcG6becYmLDS-6kCK11OxNPIwQ"
+  "token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MzU2LCJwZXRJZCI6OTU5LCJzdWIiOiJ1c2VyIiwiZXhwIjoxNjQxODIwMzk3fQ.HQCc2V4InBR1ZZBoAdiWCN0nr0vZZvZXqNnGOc1uINw"
 }</code></pre>
 </div>
 </div>
@@ -1393,7 +1393,7 @@ Content-Length: 177
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/pet' -i -X POST \
     -H 'Content-Type: multipart/form-data;charset=UTF-8' \
     -F 'imageFile=                              ' \
-    -F 'petPostDto={"name":"testName","birthDate":[2021,12,10,22,9,34,480461000]};type=application/json'</code></pre>
+    -F 'petPostDto={"name":"testName","birthDate":[2021,12,10,22,13,21,468745000]};type=application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -1413,7 +1413,7 @@ Content-Disposition: form-data; name=imageFile
 Content-Disposition: form-data; name=petPostDto
 Content-Type: application/json
 
-{"name":"testName","birthDate":[2021,12,10,22,9,34,480461000]}
+{"name":"testName","birthDate":[2021,12,10,22,13,21,468745000]}
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm--</code></pre>
 </div>
 </div>
@@ -1483,7 +1483,22 @@ Content-Length: 109
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'https://eclass.jonghyeon.com/api/v1/file/image' -i -X POST \
     -H 'Content-Type: multipart/form-data;charset=UTF-8' \
+    -F 'imageFiles=                              ' \
     -F 'imageFiles=                              '</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 112
+
+[ {
+  "imageUrl" : "https://eclass-bucket.s3.ap-northeast-2.amazonaws.com/diary-pictures/diaryImageFileName"
+} ]</code></pre>
 </div>
 </div>
 </div>
@@ -1494,7 +1509,7 @@ Content-Length: 109
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2021-12-09 23:38:45 +0900
+Last updated 2021-12-10 22:14:05 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">

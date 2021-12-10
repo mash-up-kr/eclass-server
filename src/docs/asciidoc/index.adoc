@@ -248,3 +248,4 @@ include::{snippets}/api/v1/pet/get/http-response.adoc[]
 ==== Curl Command
 
 include::{snippets}/file/image/registerImageTest/curl-request.adoc[]
+include::{snippets}/file/image/registerImageTest/http-response.adoc[]

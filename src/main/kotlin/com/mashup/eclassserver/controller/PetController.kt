@@ -1,10 +1,9 @@
 package com.mashup.eclassserver.controller
 
-import com.mashup.eclassserver.model.dto.PetEditDto
-import com.mashup.eclassserver.model.dto.PetPostDto
-import com.mashup.eclassserver.model.dto.PetResponseDto
+import com.mashup.eclassserver.config.LoginInfo
+import com.mashup.eclassserver.model.dto.*
 import com.mashup.eclassserver.model.entity.Pet
-import com.mashup.eclassserver.model.repository.MemberRepository
+import com.mashup.eclassserver.service.MemberService
 import com.mashup.eclassserver.service.PetService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,23 +14,25 @@ import org.springframework.web.multipart.MultipartFile
 @RequestMapping("/api/v1/pet")
 class PetController(
     val petService: PetService,
-    val memberRepository: MemberRepository
+    val memberService: MemberService
 ) {
     @PostMapping
-    fun savePet(@RequestPart petPostDto: PetPostDto, @RequestParam imageFile: MultipartFile?): ResponseEntity<Unit> {
-        //JWT 멤버 꺼내오기
+    fun savePet(
+        @RequestPart petPostDto: PetPostDto,
+        @RequestParam imageFile: MultipartFile?,
+        @LoginInfo loginInfo: LoginInfoDto
+    ): ResponseEntity<Unit> {
+        val member = memberService.findById(loginInfo.memberId)
         val pet = Pet.of(petPostDto)
         petService.savePet(pet, imageFile)
-        //member.setPetid(petid)
+        memberService.registerPet(member, pet)
         return ResponseEntity
                 .status(HttpStatus.OK).build()
     }
 
     @GetMapping
-    fun getPet(): ResponseEntity<PetResponseDto> {
-        val member = memberRepository.findById(1).get()
-
-        val pet = petService.findPet(member.petId)
+    fun getPet(@LoginInfo loginInfo: LoginInfoWithPetDto): ResponseEntity<PetResponseDto> {
+        val pet = petService.findPet(loginInfo.petId)
         return ResponseEntity
                 .status(HttpStatus.OK).body(PetResponseDto.of(pet))
     }
@@ -39,9 +40,10 @@ class PetController(
     @PutMapping()
     fun editPet(
         @RequestPart petEditDto: PetEditDto,
-        @RequestParam imageFile: MultipartFile?
+        @RequestParam imageFile: MultipartFile?,
+        @LoginInfo loginInfo: LoginInfoWithPetDto
     ): ResponseEntity<Unit> {
-        val member = memberRepository.findById(1).get()
+        val member = memberService.findById(loginInfo.memberId)
 
         val pet = petService.findPet(member.petId)
         petService.editPet(pet, petEditDto, imageFile)

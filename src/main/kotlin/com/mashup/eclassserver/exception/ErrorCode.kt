@@ -12,6 +12,7 @@ enum class ErrorCode(val httpStatus: Int, val description: String) {
     BADGE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Badge Not Found"),
     PET_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Pet Not Found"),
     DIARY_PICTURE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Diary Picture Not Found"),
+    REPLY_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Reply Not Found"),
 
     // Common
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST.value(), "Invalid Input Value"),

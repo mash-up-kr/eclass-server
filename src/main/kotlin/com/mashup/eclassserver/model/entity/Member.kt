@@ -8,7 +8,7 @@ data class Member(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val memberId: Long = 0,
 
-    val petId: Long = 0,
+    var petId: Long = 0,
 
     val nickname: String,
 

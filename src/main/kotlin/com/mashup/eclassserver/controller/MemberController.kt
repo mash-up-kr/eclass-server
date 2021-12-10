@@ -17,10 +17,8 @@ class MemberController(
     private val memberService: MemberService
 ) {
     @PostMapping("/signUp")
-    fun signUp(@Valid @RequestPart signUpRequestDto: SignUpRequestDto, @RequestParam imageFile: MultipartFile?): ResponseEntity<SignUpResponseDto> {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(memberService.signUp(signUpRequestDto, imageFile))
+    fun signUp(@Valid @RequestBody signUpRequestDto: SignUpRequestDto): ResponseEntity<SignUpResponseDto> {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.signUp(signUpRequestDto))
     }
 
     @PostMapping("/login")

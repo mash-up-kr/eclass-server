@@ -1,5 +1,6 @@
 package com.mashup.eclassserver.controller
 
+import com.mashup.eclassserver.model.dto.ImageUrlResponseDto
 import com.mashup.eclassserver.service.FileService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,9 +16,7 @@ class FileController(
     private val awsService: FileService
 ) {
     @PostMapping("/image")
-    fun registerImage(@RequestParam imageFile: MultipartFile?): ResponseEntity<String> {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(awsService.saveImage(imageFile))
+    fun registerImage(@RequestParam imageFiles: List<MultipartFile>): ResponseEntity<List<ImageUrlResponseDto>> {
+        return ResponseEntity.status(HttpStatus.OK).body(awsService.saveImages(imageFiles))
     }
 }

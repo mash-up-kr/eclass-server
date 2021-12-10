@@ -18,6 +18,7 @@ import org.springframework.http.MediaType
 import org.springframework.mock.web.MockMultipartFile
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.PayloadDocumentation
 import org.springframework.restdocs.request.RequestDocumentation
@@ -37,31 +38,26 @@ class MemberControllerTest : AbstractTestRestDocs() {
 
     @Test
     fun signUpTest() {
-        val imageFile = MockMultipartFile("imageFile", ByteArray(30))
-        val signUpRequestDto = SignUpRequestDto("test.com", "1234", "testNick")
-        val signUpRequest = MockMultipartFile("signUpRequestDto", "", MediaType.APPLICATION_JSON_VALUE, DEFAULT_OBJECT_MAPPER.writeValueAsString(signUpRequestDto).toByteArray())
+        val signUpRequestDto = SignUpRequestDto("test.com", "1234", "testNick", "imageUrl.com")
 
         mockMvc.perform(
-                MockMvcRequestBuilders.multipart("$MEMBER_BASE_URL/signUp")
-                        .file(imageFile)
-                        .file(signUpRequest)
+            post("$MEMBER_BASE_URL/signUp")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(DEFAULT_OBJECT_MAPPER.writeValueAsString(signUpRequestDto))
+
         )
-                .andDo(MockMvcResultHandlers.print())
-                .andDo(
-                        MockMvcRestDocumentation.document(
-                                "member/{methodName}",
-                                RequestDocumentation.requestParts(
-                                        RequestDocumentation.partWithName("imageFile").description("멤버 프로필 이미지"),
-                                        RequestDocumentation.partWithName("signUpRequestDto").description("회원가입 요청 데이터")
-                                ),
-                                PayloadDocumentation.requestPartFields(
-                                        "signUpRequestDto",
-                                        PayloadDocumentation.fieldWithPath("email").description("이메일"),
-                                        PayloadDocumentation.fieldWithPath("password").description("비밀번호"),
-                                        PayloadDocumentation.fieldWithPath("nickname").description("닉네임")
-                                )
-                        )
+            .andDo(MockMvcResultHandlers.print())
+            .andDo(
+                MockMvcRestDocumentation.document(
+                    "member/{methodName}",
+                    PayloadDocumentation.requestFields(
+                        PayloadDocumentation.fieldWithPath("email").description("이메일"),
+                        PayloadDocumentation.fieldWithPath("password").description("비밀번호"),
+                        PayloadDocumentation.fieldWithPath("nickname").description("닉네임"),
+                        PayloadDocumentation.fieldWithPath("imageUrl").description("이미지 url")
+                    )
                 )
+            )
     }
 
     @Test

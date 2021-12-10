@@ -15,4 +15,5 @@ data class SignUpRequestDto(
     @field:NotEmpty
     @field:NotBlank
     val nickname: String,
+    val imageUrl: String
 )

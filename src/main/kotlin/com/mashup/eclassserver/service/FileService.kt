@@ -1,6 +1,8 @@
 package com.mashup.eclassserver.service
 
+import com.mashup.eclassserver.model.dto.ImageUrlResponseDto
 import com.mashup.eclassserver.supporter.S3Supporter
+import kotlinx.coroutines.*
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 
@@ -8,10 +10,16 @@ import org.springframework.web.multipart.MultipartFile
 class FileService(
     private val s3Supporter: S3Supporter
 ) {
-    fun saveImage(imageFile: MultipartFile?): String {
-        val result = imageFile
-                ?.let { s3Supporter.transmit(imageFile, S3Supporter.DIARYPICTURES).url }
-                ?: throw IllegalStateException("null imageFile")
-        return result
+    fun saveImages(imageFiles: List<MultipartFile>): List<ImageUrlResponseDto> {
+        val imageUrlResponseDtoList = mutableListOf<ImageUrlResponseDto>()
+        GlobalScope.launch {
+            imageFiles.map { multipartFile ->
+                GlobalScope.async {
+                    imageUrlResponseDtoList.add(ImageUrlResponseDto(s3Supporter.transmit(multipartFile, S3Supporter.DIARYPICTURES).url))
+                }
+            }.joinAll()
+        }
+
+        return imageUrlResponseDtoList
     }
 }
